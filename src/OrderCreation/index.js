@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
+import DishCreation from './DishCreation'
 
 class OrderCreation extends Component {
 
@@ -54,6 +55,7 @@ class OrderCreation extends Component {
 	}
 
 	handleBackClick = () => {
+		console.log('handleBackClick');
 
 			this.setState({
 				stage: this.state.stage - 1
@@ -75,14 +77,9 @@ class OrderCreation extends Component {
 			}
 
 			{this.state.stages[this.state.stage] === 'dishCreation' ? 
-				<Segment>
 
-					<Button name='back' onClick={this.handleBackClick}>go back.</Button>
-					<Segment>
-						<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
-						<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
-					</Segment>
-				</Segment>
+				<DishCreation handleBackClick={this.handleBackClick}/>
+			
 				:
 				null
 			}
