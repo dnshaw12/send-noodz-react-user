@@ -4,6 +4,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import UserMenu from './UserMenu'
 import SignUp from './SignUp'
 import Login from './Login'
+import OrderCreation from './OrderCreation'
 
 class App extends Component {
 
@@ -15,11 +16,6 @@ class App extends Component {
       name: '',
       email: '',
       phoneNumber: '',
-      addr1: '',
-      addr2: '',
-      city: '',
-      state: '',
-      zip: '',
       profilePic: {}
     }
   }
@@ -103,6 +99,7 @@ class App extends Component {
 
     this.setState({
       loggedIn: false,
+      _id: '',
       name: '',
       email: '',
       phoneNumber: '',
@@ -123,6 +120,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp}/>  } />
           <Route exact path='/login' render={(props) => <Login {...props} login={this.login}/>  } />
+          <Route exact path='/' render={(props) => <OrderCreation {...props} {...this.state}/>  } />
         </Switch>
       </main>
     );
