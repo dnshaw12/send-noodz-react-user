@@ -28,7 +28,11 @@ class Login extends Component {
       data.append('email', this.state.email);
       data.append('password', this.state.password);
 
-      this.props.login(data);
+      const loginStatus = await this.props.login(data);
+
+      if (loginStatus === 200) {
+      	this.props.history.push('/')
+      }
 
    }
 

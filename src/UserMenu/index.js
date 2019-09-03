@@ -22,7 +22,29 @@ class UserMenu extends Component {
 		return(
 			<div>
 				{this.props.loggedIn ? 
-					null
+					<Menu verticle="true">
+						<Menu.Item
+							name='order-status'
+							onClick={this.handleClick}
+						>
+							order status.
+						</Menu.Item>
+
+						<Menu.Item
+							name='past-orders'
+							onClick={this.handleClick}
+						>
+							past orders.
+						</Menu.Item>
+
+						<Menu.Item
+							name='logout'
+							onClick={this.props.logout}
+						>
+							logout.
+						</Menu.Item>
+
+					</Menu>
 					:
 					<Menu verticle="true">
 						<Menu.Item

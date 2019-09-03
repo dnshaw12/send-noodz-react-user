@@ -50,7 +50,11 @@ class SignUp extends Component {
       data.append('zip', this.state.zip);
       data.append('email', this.state.email);
 
-      this.props.signUp(data);
+      const signUpStatus = await this.props.signUp(data);
+
+      if (signUpStatus === 200) {
+      	this.props.history.push('/')
+      }
 
    }
 

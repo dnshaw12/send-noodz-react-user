@@ -46,10 +46,15 @@ class App extends Component {
       const parsedResponse = await signUpResponse.json()
       console.log(parsedResponse);
 
-      this.setState({
-        ...parsedResponse.data,
-        loggedIn: true
-      })
+      if (signUpResponse.status === 201) {
+        this.setState({
+          ...parsedResponse.data,
+          loggedIn: true
+        })
+
+      }
+
+      return signUpResponse.status
 
 
     } catch(err){
@@ -87,17 +92,34 @@ class App extends Component {
         })  
       }
 
-
+      return loginResponse.status 
 
     } catch(err){
       console.log(err);
     }
   }
 
+  logout = () => {
+
+    this.setState({
+      loggedIn: false,
+      name: '',
+      email: '',
+      phoneNumber: '',
+      addr1: '',
+      addr2: '',
+      city: '',
+      state: '',
+      zip: '',
+      profilePic: {}
+    })
+
+  }
+
   render(){
     return (
       <main>
-        <UserMenu loggedIn={this.state.loggedIn}/>
+        <UserMenu loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp}/>  } />
           <Route exact path='/login' render={(props) => <Login {...props} login={this.login}/>  } />
