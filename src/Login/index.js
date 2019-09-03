@@ -41,12 +41,12 @@ class Login extends Component {
       return (
       
          <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
-            <Grid.Column style={{maxWidth: 450}}>
-               <Header as='h2' textAlign='center'>
-                  login.
-               </Header>
+            <Grid.Column >
                <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                   <Segment stacked textAlign='left'>
+	               <Header as='h2' textAlign='center'>
+	                  login.
+	               </Header>
                      email:
                      <Form.Input fluid icon='mail' iconPosition='left' placeholder='email.' type='text' name='email' onChange={this.handleChange}/>
                      password:

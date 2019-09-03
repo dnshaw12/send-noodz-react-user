@@ -52,7 +52,7 @@ class SignUp extends Component {
 
       const signUpStatus = await this.props.signUp(data);
 
-      if (signUpStatus === 200) {
+      if (signUpStatus === 201) {
       	this.props.history.push('/')
       }
 
@@ -64,11 +64,11 @@ class SignUp extends Component {
       
          <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
             <Grid.Column style={{maxWidth: 450}}>
-               <Header as='h2' textAlign='center'>
-                  sign up.
-               </Header>
                <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                   <Segment stacked textAlign='left'>
+		               <Header as='h2' textAlign='center'>
+		                  sign up.
+		               </Header>
                      name:
                      <Form.Input fluid icon='user' iconPosition='left' placeholder='name.' type='text' name='name' onChange={this.handleChange}/>
                      email:

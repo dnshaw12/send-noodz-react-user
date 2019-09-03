@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, withRouter, BrowserRouter as Router } from 'react-router-dom';
 
 import UserMenu from './UserMenu'
 import SignUp from './SignUp'
@@ -111,6 +111,8 @@ class App extends Component {
       profilePic: {}
     })
 
+    this.props.history.push('/login')
+
   }
 
   render(){
@@ -128,4 +130,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

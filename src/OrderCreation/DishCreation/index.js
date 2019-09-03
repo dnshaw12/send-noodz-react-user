@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
+import Collapsible from 'react-collapsible';
 
 class DishCreation extends Component {
 
@@ -11,7 +12,12 @@ class DishCreation extends Component {
 			extraIngredients: [],
 			specialInstructions: '',
 			byonMenuItem: {},
-			menuItems: []
+			menuItems: [],
+			stage: 'typeChoice',
+			stageIndex: 0,
+			menuItemStages: ['dishChoice', 'extraIngredients', 'confirm'],
+			byonStage: ['noodleChoice', 'proteinChoice', 'extraIngredients', 'sauceChoice', 'confirm']
+
 		}
 	}
 
@@ -34,7 +40,28 @@ class DishCreation extends Component {
 
 	}
 
+	handleTypeChoiceClick = (e) => {
 
+		this.setState({
+			stage: e.target.name
+		})
+
+	}
+
+	handleBackClick = () => {
+
+		if (this.state.stageIndex === 0 && this.state.stage === 'typeChoice' ) {
+			this.props.handleBackClick()
+		} else if (this.state.stageIndex > 0 ) {
+			this.setState({
+				stageIndex: this.state.stageIndex - 1
+			})
+		} else {
+			this.setState({
+				stage: 'typeChoice'
+			})
+		}
+	}
 
 
 
@@ -44,11 +71,24 @@ class DishCreation extends Component {
 
 			<Segment>
 
-				<Button name='back' onClick={this.props.handleBackClick}>go back.</Button>
+			<Button size='sm' name='back' onClick={this.handleBackClick}>go back.</Button>
+
+			{ this.state.stage === 'typeChoice' ? 
+
 				<Segment>
 					<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
 					<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
 				</Segment>
+
+				:
+
+				null
+
+			}
+
+
+
+
 			</Segment>
 
 		)
