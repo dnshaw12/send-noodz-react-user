@@ -34,7 +34,7 @@ class DishCreation extends Component {
 		console.log(this.props);
 
 
-		await this.setState({
+		this.setState({
 			menuItems: this.props.menuItems,
 			byonMenuItem: this.props.byonMenuItem,
 			noodles: this.props.noodles,
@@ -43,7 +43,6 @@ class DishCreation extends Component {
 			normals: this.props.normals
 		})
 
-		console.log(this.state, 'state after componentDidMount');
 
 
 	}

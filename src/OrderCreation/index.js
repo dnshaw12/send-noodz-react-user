@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
 import DishCreation from './DishCreation'
+import ReviewOrder from './ReviewOrder'
 
 class OrderCreation extends Component {
 
@@ -8,6 +9,7 @@ class OrderCreation extends Component {
 		super(props)
 
 		this.state = {
+			orderId: '',
 			userId: '',
 			delivery: true,
 			dishes: [],
@@ -31,8 +33,12 @@ class OrderCreation extends Component {
 
 		if (this.props.loggedIn) {
 			this.setState({
-				...this.props,
-				...this.props.address
+				...this.props.address,
+				userId: this.props._id,
+	      	name: this.props.name,
+	      	email: this.props.email,
+	      	phoneNumber: this.props.phoneNumber,
+	      	profilePic: this.props.profilePic
 			})
 
 		} else {
@@ -111,11 +117,50 @@ class OrderCreation extends Component {
 
 	}
 
-	reviewOrder = () => {
+	reviewOrder = async () => {
 
-		this.setState({
-			stage: 2
-		})
+		try {
+
+			let parsedResponse;
+
+			if (this.state.orderId) {
+
+				const updatedOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
+					method: 'PUT',
+		        	credentials: 'include',
+		        	body: JSON.stringify(this.state),
+		        	headers: {
+		         	'Content-Type': 'application/json'
+	       		}
+				})
+
+				parsedResponse = await updatedOrderResponse.json()
+
+			} else {
+
+				const newOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/',{
+					method: 'POST',
+		        	credentials: 'include',
+		        	body: JSON.stringify(this.state),
+		        	headers: {
+		         	'Content-Type': 'application/json'
+	       		}
+				})
+
+				parsedResponse = await newOrderResponse.json()
+			}
+
+
+			console.log(parsedResponse,'parsedResponse on order creation');
+			
+			this.setState({
+				orderId: parsedResponse.data._id,
+				stage: 2
+			})
+		} catch(err){
+		  console.log(err);
+		}
+
 	}
 
 	render(){
@@ -152,7 +197,7 @@ class OrderCreation extends Component {
 
 			{this.state.stages[this.state.stage] === 'placeOrder' ? 
 
-				<div>review order page here</div>
+				<ReviewOrder orderId={this.state.orderId}/>
 			
 				:
 				null
