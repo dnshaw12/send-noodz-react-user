@@ -1,10 +1,7 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Button } from 'semantic-ui-react';
 
 const ConfirmDish = (props) => {
-
-	console.log(props);
-
 
 	// if (props.currentMenuItem.name !== 'byon') {
 
@@ -40,6 +37,8 @@ const ConfirmDish = (props) => {
 				<li>ingredients: {ingredients}</li>
 				<li>total: {total}</li>
 			</ul>
+			<textarea value={props.specialInstructions} onChange={props.updateSpecialInstructions} placeholder='special instructions.'/>
+			<Button onClick={props.createDish}>add to cart.</Button>
 		</Segment>
 
 	)

@@ -23,8 +23,8 @@ class DishCreation extends Component {
 			normals: [],
 			stage: 'typeChoice',
 			stageIndex: 0,
-			menuItemStages: ['dishChoice', 'extraIngredients', 'confirm'],
-			byonStages: ['noodleChoice', 'proteinChoice', 'sauceChoice', 'extraIngredients', 'confirm']
+			menuItemStages: ['dishChoice', 'extraIngredients', 'confirm','addAnotherPrompt'],
+			byonStages: ['noodleChoice', 'proteinChoice', 'sauceChoice', 'extraIngredients', 'confirm','addAnotherPrompt']
 
 		}
 	}
@@ -125,6 +125,56 @@ class DishCreation extends Component {
 		})
 	}
 
+	createDish = async () => {
+		
+		try {
+			console.log(this.state, 'state on dish creation');
+
+
+
+			const newDishResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/dishes/',{
+				method: 'POST',
+	        	credentials: 'include',
+	        	body: JSON.stringify(this.state),
+	        	headers: {
+	         	'Content-Type': 'application/json'
+       		}
+			})
+
+			const parsedResponse = await newDishResponse.json()
+
+			console.log(newDishResponse.status, parsedResponse);
+
+			if (newDishResponse.status === 201) {
+
+				this.props.addDish(parsedResponse.data)
+
+				this.setState({
+					menuItemId: '',
+					extraIngredients: [],
+					specialInstructions: '',
+					byonMenuItem: {},
+					menuItems: [],
+					noodles: [],
+					proteins: [],
+					sauces: [],
+					normals: [],
+					stageIndex: this.state.stageIndex + 1
+				})
+			}
+			
+		} catch(err){
+		  console.log(err);
+		}
+	}
+
+	updateSpecialInstructions = e => {
+		console.log(this.state.specialInstructions);
+		this.setState({
+			specialInstructions: e.target.value
+		})
+	}
+
 
 	render(){
 		return(
@@ -193,8 +243,18 @@ class DishCreation extends Component {
 										extraIngredients={this.state.extraIngredients}
 										currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
 										ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
-
+										createDish={this.createDish}
+										updateSpecialInstructions={this.updateSpecialInstructions}
+										specialInstructions={this.state.specialInstructions}
 									/>
+				
+								:
+				
+									null}
+
+				{this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
+				
+									<div>{this.state.menuItemStages[this.state.stageIndex]}</div>
 				
 								:
 				

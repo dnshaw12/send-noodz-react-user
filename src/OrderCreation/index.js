@@ -17,7 +17,8 @@ class OrderCreation extends Component {
 			state: '', 
 			zip: '',
 			stage: 0,
-			stages: ['initiation', 'dishCreation']
+			stages: ['initiation', 'dishCreation'],
+			total: 0
 
 		}
 	}
@@ -62,6 +63,20 @@ class OrderCreation extends Component {
 			})	
 	}
 
+	addDish = (dish) => {
+
+		const newDishArr = this.state.dishes
+
+		newDishArr.push(dish)
+
+		this.setState({
+			dishes: newDishArr
+		})
+
+		console.log(this.state.newDishArr);
+
+	}
+
 	render(){
 		return(
 			<div>
@@ -78,7 +93,7 @@ class OrderCreation extends Component {
 
 			{this.state.stages[this.state.stage] === 'dishCreation' ? 
 
-				<DishCreation handleBackClick={this.handleBackClick}/>
+				<DishCreation addDish={this.addDish} handleBackClick={this.handleBackClick}/>
 			
 				:
 				null
