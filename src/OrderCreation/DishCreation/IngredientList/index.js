@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Segment} from 'semantic-ui-react';
+import Ingredient from './Ingredient'
 
 const IngredientList = (props) => {
 
@@ -11,10 +12,11 @@ const IngredientList = (props) => {
 
 		return(
 
-			<Card>
-				{ingredient.name}
-				{ ingredient.price ? ingredient.price : null}
-			</Card>
+			<Ingredient 
+				ingredient={ingredient} 
+				handleIngredientSelection={props.handleIngredientSelection}
+				extraIngredients={props.extraIngredients}
+			/>
 
 			)
 

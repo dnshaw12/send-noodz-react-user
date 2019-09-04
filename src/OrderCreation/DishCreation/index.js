@@ -102,6 +102,28 @@ class DishCreation extends Component {
 		})
 	}
 
+	handleIngredientSelection = (id, exists) => {
+		let ingredients = this.state.extraIngredients
+
+		console.log(ingredients);
+
+		if (exists) {
+
+			ingredients = ingredients.filter( ingredient => ingredient !== id)
+
+			console.log(ingredients, 'after filter');
+
+
+		} else {
+			ingredients.push(id)
+		}
+
+
+		this.setState({
+			extraIngredients: ingredients
+		})
+	}
+
 
 	render(){
 		return(
@@ -156,6 +178,8 @@ class DishCreation extends Component {
 									<IngredientList  
 										ingredients={this.state.normals}
 										currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
+										handleIngredientSelection={this.handleIngredientSelection}
+										extraIngredients={this.state.extraIngredients}
 									/>
 				
 								:
