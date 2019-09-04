@@ -4,6 +4,7 @@ import Collapsible from 'react-collapsible';
 
 import MenuItemList from './MenuItemList'
 import IngredientList from './IngredientList'
+import ConfirmDish from './ConfirmDish'
 
 class DishCreation extends Component {
 
@@ -188,8 +189,12 @@ class DishCreation extends Component {
 
 				{this.state.menuItemStages[this.state.stageIndex] === 'confirm' ?
 				
-									// <DishConfirmation  />
-									<div>{this.state.menuItemStages[this.state.stageIndex]}</div>
+									<ConfirmDish  
+										extraIngredients={this.state.extraIngredients}
+										currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
+										ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
+
+									/>
 				
 								:
 				
