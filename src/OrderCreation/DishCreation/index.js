@@ -4,7 +4,6 @@ import Collapsible from 'react-collapsible';
 
 import MenuItemList from './MenuItemList'
 import IngredientList from './IngredientList'
-import UniqueIngredientList from './UniqueIngredientList'
 import ConfirmDish from './ConfirmDish'
 
 class DishCreation extends Component {
@@ -32,35 +31,19 @@ class DishCreation extends Component {
 
 	componentDidMount = async () => {
 
-		const menuItemsResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/menuItems')
+		console.log(this.props);
 
-		const parsedResponse = await menuItemsResponse.json()
 
-		console.log(parsedResponse);
-
-		const regularMenuItems = parsedResponse.data.filter( item => item.name !== 'byon')
-		const byonMenuItem = parsedResponse.data[parsedResponse.data.findIndex( item => item.name === 'byon')]
-
-		const ingredientResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/ingredients')
-
-		const parsedResponse2 = await ingredientResponse.json()
-
-		const noodles = parsedResponse2.data.filter( ingredient => ingredient.type === 'noodle' && ingredient.name !== 'custom')
-
-		const proteins = parsedResponse2.data.filter( ingredient => ingredient.type === 'protein' && ingredient.name !== 'custom')
-
-		const sauces = parsedResponse2.data.filter( ingredient => ingredient.type === 'sauce' && ingredient.name !== 'custom')
-
-		const normals = parsedResponse2.data.filter( ingredient => ingredient.type === 'normal' && ingredient.name !== 'custom')
-
-		this.setState({
-			menuItems: regularMenuItems,
-			byonMenuItem: byonMenuItem,
-			noodles: noodles,
-			proteins: proteins,
-			sauces: sauces,
-			normals: normals
+		await this.setState({
+			menuItems: this.props.menuItems,
+			byonMenuItem: this.props.byonMenuItem,
+			noodles: this.props.noodles,
+			proteins: this.props.proteins,
+			sauces: this.props.sauces,
+			normals: this.props.normals
 		})
+
+		console.log(this.state, 'state after componentDidMount');
 
 
 	}
@@ -209,11 +192,11 @@ class DishCreation extends Component {
 
 				<div>
 
-					<Button size='sm' name='back' onClick={this.handleBackClick}>go back.</Button>
+					<Button onClick={this.handleBackClick}>go back.</Button>
 
 					{ this.state.stage !== 'typeChoice' ? 
 
-						<Button size='sm' name='back' onClick={this.handleNextClick}>next.</Button>
+						<Button onClick={this.handleNextClick}>next.</Button>
 
 					:
 
@@ -249,53 +232,42 @@ class DishCreation extends Component {
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
 					
-										<MenuItemList 
-											menuItems={this.state.menuItems} 
-											selectMenuItem={this.selectMenuItem}
-										/>
-					
-									:
-					
-										null}
+						<MenuItemList 
+							menuItems={this.state.menuItems} 
+							selectMenuItem={this.selectMenuItem}
+						/>
+	
+					:
+	
+						null}
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'extraIngredients' ?
 					
-										<IngredientList  
-											ingredients={this.state.normals}
-											currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
-											handleIngredientSelection={this.handleIngredientSelection}
-											extraIngredients={this.state.extraIngredients}
-										/>
-					
-									:
-					
-										null}
+						<IngredientList  
+							ingredients={this.state.normals}
+							currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
+							handleIngredientSelection={this.handleIngredientSelection}
+							extraIngredients={this.state.extraIngredients}
+						/>
+	
+					:
+	
+						null}
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'confirm' ?
 					
-										<ConfirmDish  
-											extraIngredients={this.state.extraIngredients}
-											currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
-											ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
-											createDish={this.createDish}
-											updateSpecialInstructions={this.updateSpecialInstructions}
-											specialInstructions={this.state.specialInstructions}
-										/>
-					
-									:
-					
-										null}
-
-					{this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
-					
-										<Segment>
-											<Button onClick={this.startNewDish}>add more noodz.</Button>
-											<Button onClick={this.reviewOrder}>review noodz order.</Button>
-										</Segment>
-					
-									:
-					
-										null}
+						<ConfirmDish  
+							extraIngredients={this.state.extraIngredients}
+							currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
+							ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
+							createDish={this.createDish}
+							updateSpecialInstructions={this.updateSpecialInstructions}
+							specialInstructions={this.state.specialInstructions}
+						/>
+	
+					:
+	
+						null}
 
 				</div>
 
@@ -313,80 +285,70 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'noodleChoice' ?
 				
-									<IngredientList  
-										ingredients={this.state.noodles}
-										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
-										handleIngredientSelection={this.handleIngredientSelection}
-										extraIngredients={this.state.extraIngredients}
-									/>
-				
-								:
-				
-									null}
+					<IngredientList  
+						ingredients={this.state.noodles}
+						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+						handleIngredientSelection={this.handleIngredientSelection}
+						extraIngredients={this.state.extraIngredients}
+					/>
+
+				:
+
+					null}
 
 				{this.state.byonStages[this.state.stageIndex] === 'proteinChoice' ?
 				
-									<IngredientList  
-										ingredients={this.state.proteins}
-										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
-										handleIngredientSelection={this.handleIngredientSelection}
-										extraIngredients={this.state.extraIngredients}
-									/>
-				
-								:
-				
-									null}
+					<IngredientList  
+						ingredients={this.state.proteins}
+						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+						handleIngredientSelection={this.handleIngredientSelection}
+						extraIngredients={this.state.extraIngredients}
+					/>
+
+				:
+
+					null}
 
 				{this.state.byonStages[this.state.stageIndex] === 'sauceChoice' ?
 				
-									<IngredientList  
-										ingredients={this.state.sauces}
-										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
-										handleIngredientSelection={this.handleIngredientSelection}
-										extraIngredients={this.state.extraIngredients}
-									/>
-				
-								:
-				
-									null}
+					<IngredientList  
+						ingredients={this.state.sauces}
+						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+						handleIngredientSelection={this.handleIngredientSelection}
+						extraIngredients={this.state.extraIngredients}
+					/>
+
+				:
+
+					null}
 
 				{this.state.byonStages[this.state.stageIndex] === 'extraIngredients' ?
 				
-									<IngredientList  
-										ingredients={this.state.normals}
-										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
-										handleIngredientSelection={this.handleIngredientSelection}
-										extraIngredients={this.state.extraIngredients}
-									/>
-				
-								:
-				
-									null}
+					<IngredientList  
+						ingredients={this.state.normals}
+						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+						handleIngredientSelection={this.handleIngredientSelection}
+						extraIngredients={this.state.extraIngredients}
+					/>
+
+				:
+
+					null}
 
 				{this.state.byonStages[this.state.stageIndex] === 'confirm' ?
 				
-									<ConfirmDish  
-										extraIngredients={this.state.extraIngredients}
-										currentMenuItem={this.state.byonMenuItem}
-										ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
-										createDish={this.createDish}
-										updateSpecialInstructions={this.updateSpecialInstructions}
-										specialInstructions={this.state.specialInstructions}
-									/>
-				
-								:
-				
-									null}
-				{this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt' ?
-				
-									<Segment>
-										<Button onClick={this.startNewDish}>add more noodz.</Button>
-										<Button onClick={this.reviewOrder}>review noodz order.</Button>
-									</Segment>
-				
-								:
-				
-									null}
+					<ConfirmDish  
+						extraIngredients={this.state.extraIngredients}
+						currentMenuItem={this.state.byonMenuItem}
+						ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
+						createDish={this.createDish}
+						updateSpecialInstructions={this.updateSpecialInstructions}
+						specialInstructions={this.state.specialInstructions}
+					/>
+
+				:
+
+					null}
 
 				</div>
 
@@ -395,6 +357,17 @@ class DishCreation extends Component {
 				null
 
 			}
+
+			{this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
+					
+				<Segment>
+					<Button onClick={this.startNewDish}>add more noodz.</Button>
+					<Button onClick={this.reviewOrder}>review noodz order.</Button>
+				</Segment>
+
+			:
+
+				null}
 
 			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
 
