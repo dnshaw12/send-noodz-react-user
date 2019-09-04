@@ -189,6 +189,14 @@ class OrderCreation extends Component {
 		}
 	}
 
+	updateAddress = (e) => {
+
+		console.log(this.state);
+
+		this.setState({[e.target.name]: e.target.value});
+
+	}
+
 	render(){
 		return(
 			<div>
@@ -226,6 +234,13 @@ class OrderCreation extends Component {
 				<ReviewOrder 
 					orderId={this.state.orderId}
 					confirmOrder={this.confirmOrder}
+					updateAddress={this.updateAddress}
+					addr1={this.state.addr1}
+	        		addr2={this.state.addr2}
+	        		city={this.state.city}
+	        		state={this.state.state}
+	        		zip={this.state.zip}
+
 				/>
 			
 				:

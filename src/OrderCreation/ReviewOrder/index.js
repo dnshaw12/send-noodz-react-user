@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Segment } from 'semantic-ui-react';
+import { Button, Segment, Form } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
 
 class ReviewOrder extends Component {
@@ -8,7 +8,8 @@ class ReviewOrder extends Component {
 		super()
 
 		this.state = {
-			order: null
+			order: null,
+			editActive: false
 		}
 	}
 
@@ -31,7 +32,11 @@ class ReviewOrder extends Component {
 	}
 
 
+	toggleEdit = (e) => {
+		e.preventDefault();
 
+		this.setState({editActive: !this.state.editActive})
+	}
 
 
 	render(){
@@ -133,6 +138,33 @@ class ReviewOrder extends Component {
 		return(
 			<Segment>
 				{dishes}
+
+				{this.state.editActive ? 
+
+				<Form onSubmit={this.toggleEdit}>
+					address 1:
+	            <Form.Input fluid icon='home' iconPosition='left' placeholder='address 1.' type='text' name='addr1' value={this.props.addr1} onChange={this.updateAddress}/>
+	            address 2:
+	            <Form.Input fluid iconPosition='left' placeholder='address 2.' type='text' name='addr2' value={this.props.addr2} onChange={this.updateAddress}/>
+	            city:
+	            <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' value={this.props.city} onChange={this.updateAddress}/>
+	            state:
+	            <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' value={this.props.state} onChange={this.updateAddress}/>
+	            zip:
+	            <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' value={this.props.zip} onChange={this.updateAddress}/>
+	            <Button fluid type='sumbit'>submit.</Button>
+            </Form>
+
+            :
+
+            <p>Address:<br/>
+            	{this.props.addr1 + ' ' + this.props.addr2}<br/>
+            	{this.props.city + ', ' + this.props.state + ' ' + this.props.zip}<br/>
+            	<Button onClick={this.toggleEdit}>update address.</Button>
+            </p>
+
+				}
+
 
 				<Button 
 					onClick={this.props.confirmOrder}

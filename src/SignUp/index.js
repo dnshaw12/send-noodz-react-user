@@ -89,7 +89,7 @@ class SignUp extends Component {
                      <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' onChange={this.handleChange}/>
                      state:
                      <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' onChange={this.handleChange}/>
-                     state:
+                     zip:
                      <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' onChange={this.handleChange}/>
                      profile pic:
                      <Form.Input fluid  iconPosition='left' type="file" name='profilePic' onChange={this.handleChange}/>
