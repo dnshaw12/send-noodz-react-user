@@ -153,12 +153,6 @@ class DishCreation extends Component {
 					menuItemId: '',
 					extraIngredients: [],
 					specialInstructions: '',
-					byonMenuItem: {},
-					menuItems: [],
-					noodles: [],
-					proteins: [],
-					sauces: [],
-					normals: [],
 					stageIndex: this.state.stageIndex + 1
 				})
 			}
@@ -172,6 +166,13 @@ class DishCreation extends Component {
 		console.log(this.state.specialInstructions);
 		this.setState({
 			specialInstructions: e.target.value
+		})
+	}
+
+	startNewDish = () => {
+		this.setState({
+			stageIndex: 0,
+			stage: 'typeChoice'
 		})
 	}
 
@@ -254,7 +255,10 @@ class DishCreation extends Component {
 
 				{this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
 				
-									<div>{this.state.menuItemStages[this.state.stageIndex]}</div>
+									<Segment>
+										<Button onClick={this.startNewDish}>add more noodz.</Button>
+										<Button>review noodz order.</Button>
+									</Segment>
 				
 								:
 				
