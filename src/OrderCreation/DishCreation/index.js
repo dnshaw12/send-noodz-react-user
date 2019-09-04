@@ -186,24 +186,47 @@ class DishCreation extends Component {
 		})
 	}
 
+	reviewOrder = () => {
+
+		console.log('reviewOrder');
+		this.setState({
+			menuItemId: '',
+			extraIngredients: [],
+			specialInstructions: '',
+			stageIndex: 0
+		})
+
+		this.props.reviewOrder()
+	}
+
 
 	render(){
 		return(
 
 			<Segment>
 
-			<Button size='sm' name='back' onClick={this.handleBackClick}>go back.</Button>
+			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
 
-			{ this.state.stage !== 'typeChoice' ? 
+				<div>
 
-				<Button size='sm' name='back' onClick={this.handleNextClick}>next.</Button>
+					<Button size='sm' name='back' onClick={this.handleBackClick}>go back.</Button>
 
+					{ this.state.stage !== 'typeChoice' ? 
+
+						<Button size='sm' name='back' onClick={this.handleNextClick}>next.</Button>
+
+					:
+
+						null
+
+
+					}
+				</div>
 			:
 
 				null
-
-
 			}
+
 
 			{ this.state.stage === 'typeChoice' ? 
 
@@ -267,7 +290,7 @@ class DishCreation extends Component {
 					
 										<Segment>
 											<Button onClick={this.startNewDish}>add more noodz.</Button>
-											<Button>review noodz order.</Button>
+											<Button onClick={this.reviewOrder}>review noodz order.</Button>
 										</Segment>
 					
 									:
@@ -358,7 +381,7 @@ class DishCreation extends Component {
 				
 									<Segment>
 										<Button onClick={this.startNewDish}>add more noodz.</Button>
-										<Button>review noodz order.</Button>
+										<Button onClick={this.reviewOrder}>review noodz order.</Button>
 									</Segment>
 				
 								:
@@ -373,6 +396,14 @@ class DishCreation extends Component {
 
 			}
 
+			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
+
+				<Button onClick={this.reviewOrder}>review my noodz order.</Button>
+
+			:
+
+				null
+			}
 
 
 
