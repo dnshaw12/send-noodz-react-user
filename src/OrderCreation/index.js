@@ -163,6 +163,32 @@ class OrderCreation extends Component {
 
 	}
 
+	confirmOrder = async ()  => {
+		try {
+
+			const updatedOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
+					method: 'PUT',
+		        	credentials: 'include',
+		        	body: JSON.stringify({
+		        		status: 'received',
+		        		addr1: this.state.addr1,
+		        		addr2: this.state.addr2,
+		        		city: this.state.city,
+		        		state: this.state.state,
+		        		zip: this.state.zip
+		        	}),
+		        	headers: {
+		         	'Content-Type': 'application/json'
+	       		}
+				})
+
+				const parsedResponse = await updatedOrderResponse.json()
+			
+		} catch(err){
+		  console.log(err);
+		}
+	}
+
 	render(){
 		return(
 			<div>
@@ -197,7 +223,10 @@ class OrderCreation extends Component {
 
 			{this.state.stages[this.state.stage] === 'placeOrder' ? 
 
-				<ReviewOrder orderId={this.state.orderId}/>
+				<ReviewOrder 
+					orderId={this.state.orderId}
+					confirmOrder={this.confirmOrder}
+				/>
 			
 				:
 				null

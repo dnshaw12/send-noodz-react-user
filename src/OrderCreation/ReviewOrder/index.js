@@ -133,6 +133,13 @@ class ReviewOrder extends Component {
 		return(
 			<Segment>
 				{dishes}
+
+				<Button 
+					onClick={this.props.confirmOrder}
+				>
+					send me nooooodz.
+
+				</Button>
 			</Segment>
 		)
 

@@ -193,15 +193,12 @@ class DishCreation extends Component {
 
 					<Button onClick={this.handleBackClick}>go back.</Button>
 
-					{ this.state.stage !== 'typeChoice' ? 
-
+					{ 
+						this.state.stage !== 'typeChoice' 
+					? 
 						<Button onClick={this.handleNextClick}>next.</Button>
-
 					:
-
 						null
-
-
 					}
 				</div>
 			:
