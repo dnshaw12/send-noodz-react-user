@@ -12,9 +12,16 @@ class Ingredient extends Component {
 
 	componentDidMount = () => {
 
-		console.log(this.props);
+		console.log(this.props.ingredient);
+		console.log(this.props.extraIngredients.some( ingredient1 => ingredient1._id === this.props.ingredient._id));
 
-		if (this.props.extraIngredients.some( ingredient => ingredient._id === ingredient._id)) {
+		console.log(this.props.extraIngredients,'extraIngredients');
+
+		this.props.extraIngredients.forEach( ing => {
+			console.log(ing._id, this.props.ingredient._id,ing._id === this.props.ingredient._id)
+		})
+
+		if (this.props.extraIngredients.some( ingredient1 => ingredient1 === this.props.ingredient._id)) {
 			this.setState({
 				selected: true
 			})

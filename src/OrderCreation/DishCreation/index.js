@@ -4,6 +4,7 @@ import Collapsible from 'react-collapsible';
 
 import MenuItemList from './MenuItemList'
 import IngredientList from './IngredientList'
+import UniqueIngredientList from './UniqueIngredientList'
 import ConfirmDish from './ConfirmDish'
 
 class DishCreation extends Component {
@@ -65,6 +66,12 @@ class DishCreation extends Component {
 	}
 
 	handleTypeChoiceClick = (e) => {
+
+		if (e.target.name === 'byon') {
+			this.setState({
+				menuItemId:this.state.byonMenuItem._id,
+			})
+		}
 
 		this.setState({
 			stage: e.target.name
@@ -280,8 +287,12 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'noodleChoice' ?
 				
-									// <IngredientList  />
-									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+									<IngredientList  
+										ingredients={this.state.noodles}
+										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+										handleIngredientSelection={this.handleIngredientSelection}
+										extraIngredients={this.state.extraIngredients}
+									/>
 				
 								:
 				
@@ -289,8 +300,12 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'proteinChoice' ?
 				
-									// <IngredientList  />
-									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+									<IngredientList  
+										ingredients={this.state.proteins}
+										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+										handleIngredientSelection={this.handleIngredientSelection}
+										extraIngredients={this.state.extraIngredients}
+									/>
 				
 								:
 				
@@ -298,8 +313,12 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'sauceChoice' ?
 				
-									// <IngredientList  />
-									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+									<IngredientList  
+										ingredients={this.state.sauces}
+										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+										handleIngredientSelection={this.handleIngredientSelection}
+										extraIngredients={this.state.extraIngredients}
+									/>
 				
 								:
 				

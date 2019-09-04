@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Segment} from 'semantic-ui-react';
+import { Segment} from 'semantic-ui-react';
 import Ingredient from './Ingredient'
 
 const IngredientList = (props) => {
