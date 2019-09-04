@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
 
+import MenuItemList from './MenuItemList'
+import IngredientList from './IngredientList'
+
 class DishCreation extends Component {
 
 	constructor(){
@@ -13,10 +16,14 @@ class DishCreation extends Component {
 			specialInstructions: '',
 			byonMenuItem: {},
 			menuItems: [],
+			noodles: [],
+			proteins: [],
+			sauces: [],
+			normals: [],
 			stage: 'typeChoice',
 			stageIndex: 0,
 			menuItemStages: ['dishChoice', 'extraIngredients', 'confirm'],
-			byonStage: ['noodleChoice', 'proteinChoice', 'extraIngredients', 'sauceChoice', 'confirm']
+			byonStages: ['noodleChoice', 'proteinChoice', 'sauceChoice', 'extraIngredients', 'confirm']
 
 		}
 	}
@@ -32,9 +39,25 @@ class DishCreation extends Component {
 		const regularMenuItems = parsedResponse.data.filter( item => item.name !== 'byon')
 		const byonMenuItem = parsedResponse.data[parsedResponse.data.findIndex( item => item.name === 'byon')]
 
+		const ingredientResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/ingredients')
+
+		const parsedResponse2 = await ingredientResponse.json()
+
+		const noodles = parsedResponse2.data.filter( ingredient => ingredient.type === 'noodle' && ingredient.name !== 'custom')
+
+		const proteins = parsedResponse2.data.filter( ingredient => ingredient.type === 'protein' && ingredient.name !== 'custom')
+
+		const sauces = parsedResponse2.data.filter( ingredient => ingredient.type === 'sauce' && ingredient.name !== 'custom')
+
+		const normals = parsedResponse2.data.filter( ingredient => ingredient.type === 'normal' && ingredient.name !== 'custom')
+
 		this.setState({
 			menuItems: regularMenuItems,
-			byonMenuItem: byonMenuItem
+			byonMenuItem: byonMenuItem,
+			noodles: noodles,
+			proteins: proteins,
+			sauces: sauces,
+			normals: normals
 		})
 
 
@@ -63,7 +86,21 @@ class DishCreation extends Component {
 		}
 	}
 
+	handleNextClick = () => {
 
+		this.setState({
+				stageIndex: this.state.stageIndex + 1
+		})
+	}
+
+	selectMenuItem = (e) => {
+		console.log(e.target.id);
+
+		this.setState({
+			menuItemId: e.target.id,
+			stageIndex: this.state.stageIndex + 1
+		})
+	}
 
 
 	render(){
@@ -73,6 +110,17 @@ class DishCreation extends Component {
 
 			<Button size='sm' name='back' onClick={this.handleBackClick}>go back.</Button>
 
+			{ this.state.stage !== 'typeChoice' ? 
+
+				<Button size='sm' name='back' onClick={this.handleNextClick}>next.</Button>
+
+			:
+
+				null
+
+
+			}
+
 			{ this.state.stage === 'typeChoice' ? 
 
 				<Segment>
@@ -81,6 +129,110 @@ class DishCreation extends Component {
 				</Segment>
 
 				:
+
+				null
+
+			}
+
+			{ this.state.stage === 'menuItem' ? 
+
+				// MENU ITEM PATHS GO HERE
+
+				<div>
+
+				{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
+				
+									<MenuItemList 
+										menuItems={this.state.menuItems} 
+										selectMenuItem={this.selectMenuItem}
+									/>
+				
+								:
+				
+									null}
+
+				{this.state.menuItemStages[this.state.stageIndex] === 'extraIngredients' ?
+				
+									<IngredientList  
+										ingredients={this.state.normals}
+										currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
+									/>
+				
+								:
+				
+									null}
+
+				{this.state.menuItemStages[this.state.stageIndex] === 'confirm' ?
+				
+									// <DishConfirmation  />
+									<div>{this.state.menuItemStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				</div>
+
+			:
+
+				null
+
+			}
+
+			{ this.state.stage === 'byon' ? 
+
+				// BYON PATHS GO HERE
+
+				<div>
+
+				{this.state.byonStages[this.state.stageIndex] === 'noodleChoice' ?
+				
+									// <IngredientList  />
+									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				{this.state.byonStages[this.state.stageIndex] === 'proteinChoice' ?
+				
+									// <IngredientList  />
+									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				{this.state.byonStages[this.state.stageIndex] === 'sauceChoice' ?
+				
+									// <IngredientList  />
+									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				{this.state.byonStages[this.state.stageIndex] === 'extraIngredients' ?
+				
+									// <IngredientList  />
+									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				{this.state.byonStages[this.state.stageIndex] === 'confirm' ?
+				
+									// <DishConfirmation  />
+									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+				
+								:
+				
+									null}
+
+				</div>
+
+			:
 
 				null
 
