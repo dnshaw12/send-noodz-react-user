@@ -89,7 +89,10 @@ class DishCreation extends Component {
 			})
 		} else {
 			this.setState({
-				stage: 'typeChoice'
+				stage: 'typeChoice',
+				menuItemId: '',
+				extraIngredients: [],
+				specialInstructions: '',
 			})
 		}
 	}
@@ -221,55 +224,55 @@ class DishCreation extends Component {
 
 				<div>
 
-				{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
-				
-									<MenuItemList 
-										menuItems={this.state.menuItems} 
-										selectMenuItem={this.selectMenuItem}
-									/>
-				
-								:
-				
-									null}
+					{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
+					
+										<MenuItemList 
+											menuItems={this.state.menuItems} 
+											selectMenuItem={this.selectMenuItem}
+										/>
+					
+									:
+					
+										null}
 
-				{this.state.menuItemStages[this.state.stageIndex] === 'extraIngredients' ?
-				
-									<IngredientList  
-										ingredients={this.state.normals}
-										currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
-										handleIngredientSelection={this.handleIngredientSelection}
-										extraIngredients={this.state.extraIngredients}
-									/>
-				
-								:
-				
-									null}
+					{this.state.menuItemStages[this.state.stageIndex] === 'extraIngredients' ?
+					
+										<IngredientList  
+											ingredients={this.state.normals}
+											currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
+											handleIngredientSelection={this.handleIngredientSelection}
+											extraIngredients={this.state.extraIngredients}
+										/>
+					
+									:
+					
+										null}
 
-				{this.state.menuItemStages[this.state.stageIndex] === 'confirm' ?
-				
-									<ConfirmDish  
-										extraIngredients={this.state.extraIngredients}
-										currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
-										ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
-										createDish={this.createDish}
-										updateSpecialInstructions={this.updateSpecialInstructions}
-										specialInstructions={this.state.specialInstructions}
-									/>
-				
-								:
-				
-									null}
+					{this.state.menuItemStages[this.state.stageIndex] === 'confirm' ?
+					
+										<ConfirmDish  
+											extraIngredients={this.state.extraIngredients}
+											currentMenuItem={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)]}
+											ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
+											createDish={this.createDish}
+											updateSpecialInstructions={this.updateSpecialInstructions}
+											specialInstructions={this.state.specialInstructions}
+										/>
+					
+									:
+					
+										null}
 
-				{this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
-				
-									<Segment>
-										<Button onClick={this.startNewDish}>add more noodz.</Button>
-										<Button>review noodz order.</Button>
-									</Segment>
-				
-								:
-				
-									null}
+					{this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
+					
+										<Segment>
+											<Button onClick={this.startNewDish}>add more noodz.</Button>
+											<Button>review noodz order.</Button>
+										</Segment>
+					
+									:
+					
+										null}
 
 				</div>
 
@@ -326,8 +329,12 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'extraIngredients' ?
 				
-									// <IngredientList  />
-									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+									<IngredientList  
+										ingredients={this.state.normals}
+										currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
+										handleIngredientSelection={this.handleIngredientSelection}
+										extraIngredients={this.state.extraIngredients}
+									/>
 				
 								:
 				
@@ -335,8 +342,24 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'confirm' ?
 				
-									// <DishConfirmation  />
-									<div>{this.state.byonStages[this.state.stageIndex]}</div>
+									<ConfirmDish  
+										extraIngredients={this.state.extraIngredients}
+										currentMenuItem={this.state.byonMenuItem}
+										ingredients={this.state.normals.concat(this.state.noodles).concat(this.state.proteins).concat(this.state.sauces)}
+										createDish={this.createDish}
+										updateSpecialInstructions={this.updateSpecialInstructions}
+										specialInstructions={this.state.specialInstructions}
+									/>
+				
+								:
+				
+									null}
+				{this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt' ?
+				
+									<Segment>
+										<Button onClick={this.startNewDish}>add more noodz.</Button>
+										<Button>review noodz order.</Button>
+									</Segment>
 				
 								:
 				

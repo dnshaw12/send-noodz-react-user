@@ -3,27 +3,54 @@ import { Segment, Button } from 'semantic-ui-react';
 
 const ConfirmDish = (props) => {
 
-	// if (props.currentMenuItem.name !== 'byon') {
+	let noodleType
+	let protein 
+	let sauce
+	let ingredients
 
-		const extraIngredients = props.ingredients.filter( ingredient => {
-			return props.extraIngredients.some( id => id === ingredient._id )
-		})
+	const extraIngredients = props.ingredients.filter( ingredient => {
+		return props.extraIngredients.some( id => id === ingredient._id )
+	})
 
-		const ingredients = props.currentMenuItem.baseIngredients.reduce( (acc, ingredient) => {
-				return ingredient.name + ' ' + acc
+	if (props.currentMenuItem.name !== 'byon') {
+
+		ingredients = props.currentMenuItem.baseIngredients.reduce( (acc, ingredient) => {
+				return ingredient.name + ', ' + acc
 			},'') + extraIngredients.reduce( (acc, ingredient) => {
-				return ingredient.name + ' ' + acc
+				return ingredient.name + ', ' + acc
 			},'')
 
-		const total = extraIngredients.reduce( (acc, ingredient) => {
+		noodleType = props.currentMenuItem.noodleType.name
+		protein = props.currentMenuItem.protein.name
+		sauce = props.currentMenuItem.sauce.name
+
+	} else {
+
+		const noodles = extraIngredients.filter( ingredient => ingredient.type === 'noodle')
+		const proteins = extraIngredients.filter( ingredient => ingredient.type === 'protein')
+		const sauces = extraIngredients.filter( ingredient => ingredient.type === 'sauce')
+		const normals = extraIngredients.filter( ingredient => ingredient.type === 'normal')
+
+		noodleType = noodles.reduce( (acc, ingredient) => {
+				return ingredient.name + ', ' + acc
+			},'')
+
+		protein = proteins.reduce( (acc, ingredient) => {
+				return ingredient.name + ', ' + acc
+			},'')
+
+		sauce = sauces.reduce( (acc, ingredient) => {
+				return ingredient.name + ', ' + acc
+			},'')
+
+		ingredients = normals.reduce( (acc, ingredient) => {
+				return ingredient.name + ', ' + acc
+			},'')
+	}
+
+	const total = extraIngredients.reduce( (acc, ingredient) => {
 			return ingredient.price + acc
 		},0) + props.currentMenuItem.basePrice
-
-		const noodleType = props.currentMenuItem.noodleType.name
-		const protein = props.currentMenuItem.protein.name
-		const sauce = props.currentMenuItem.sauce.name
-
-	// }
 
 
 	return(
