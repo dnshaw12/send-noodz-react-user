@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Segment, Form } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
+import OrderInfo from './OrderInfo'
 
 class OrderStatus extends Component {
 
@@ -9,12 +10,16 @@ class OrderStatus extends Component {
 
 		this.state = {
 
-			activeOrders: {}
+			activeOrders: null
 
 		}
 	}
 
 	componentDidMount = async () => {
+
+		if (!this.props.loggedIn) {
+			this.props.history.push('/login')
+		}
 
 		const orderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.props.userId + '/active')
 
@@ -28,11 +33,22 @@ class OrderStatus extends Component {
 
 	render(){
 
+		let orders;
+
+		if (this.state.activeOrders) {
+
+			orders = this.state.activeOrders.map( order => {
+				return <OrderInfo makePrettyDate={this.props.makePrettyDate} order={order} />
+			})
+
+		}
 
 
 		return(
 
-			<h1>ORDER STATUS</h1>
+			<Segment>
+				{orders}
+			</Segment>
 
 
 		)

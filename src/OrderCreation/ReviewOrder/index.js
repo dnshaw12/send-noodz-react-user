@@ -97,7 +97,7 @@ class ReviewOrder extends Component {
 
 				},'')
 
-				const normals = dish.extraIngredients.reduce( (acc, ingredient, idx) => {
+				let normals = dish.extraIngredients.reduce( (acc, ingredient, idx) => {
 
 					if (ingredient.type === 'normal') {
 
@@ -112,14 +112,25 @@ class ReviewOrder extends Component {
 
 				},'')
 
-				const total = dish.extraIngredients.reduce( (acc, ingredient) => {
-					return ingredient.price + acc
-				},0) + dish.menuItemId.basePrice
-
 				if (dish.menuItemId.name !== 'byon') {
 					noodles ? noodles = dish.menuItemId.noodleType.name : noodles = dish.menuItemId.noodleType.name + ', ' + noodles
 					proteins ? proteins = dish.menuItemId.protein.name : proteins = dish.menuItemId.protein.name + ', ' + proteins
 					sauces ? sauces = dish.menuItemId.sauce.name : sauces = dish.menuItemId.sauce.name + ', ' + sauces
+
+					normals = dish.menuItemId.baseIngredients.reduce( (acc, ingredient, idx) => {
+
+					if (ingredient.type === 'normal') {
+
+						if (idx === 0) {
+							return ingredient.name
+						}
+
+						return acc + ', ' +ingredient.name
+					} else {
+						return acc
+					}
+
+				},'')
 				}
 
 				return(
@@ -130,7 +141,6 @@ class ReviewOrder extends Component {
 								<li>protein: {proteins}</li>
 								<li>sauce: {sauces}</li>
 								<li>ingredients: {normals}</li>
-								<li>total: {total}</li>
 							</ul>
 
 						</Collapsible>

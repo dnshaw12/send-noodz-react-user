@@ -43,7 +43,7 @@ class Login extends Component {
          <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
             <Grid.Column >
                <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
-                  <Segment stacked textAlign='left'>
+                  <Segment textAlign='left'>
 	               <Header as='h2' textAlign='center'>
 	                  login.
 	               </Header>
