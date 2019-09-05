@@ -9,7 +9,12 @@ class ReviewOrder extends Component {
 
 		this.state = {
 			order: null,
-			editActive: false
+			editActive: false,
+			addr1: '', 
+			addr2: '', 
+			city: '', 
+			state: '', 
+			zip: ''
 		}
 	}
 
@@ -143,15 +148,15 @@ class ReviewOrder extends Component {
 
 				<Form onSubmit={this.toggleEdit}>
 					address 1:
-	            <Form.Input fluid icon='home' iconPosition='left' placeholder='address 1.' type='text' name='addr1' value={this.props.addr1} onChange={this.updateAddress}/>
+	            <Form.Input fluid icon='home' iconPosition='left' placeholder='address 1.' type='text' name='addr1' value={this.props.addr1} onChange={this.props.updateAddress}/>
 	            address 2:
-	            <Form.Input fluid iconPosition='left' placeholder='address 2.' type='text' name='addr2' value={this.props.addr2} onChange={this.updateAddress}/>
+	            <Form.Input fluid iconPosition='left' placeholder='address 2.' type='text' name='addr2' value={this.props.addr2} onChange={this.props.updateAddress}/>
 	            city:
-	            <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' value={this.props.city} onChange={this.updateAddress}/>
+	            <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' value={this.props.city} onChange={this.props.updateAddress}/>
 	            state:
-	            <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' value={this.props.state} onChange={this.updateAddress}/>
+	            <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' value={this.props.state} onChange={this.props.updateAddress}/>
 	            zip:
-	            <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' value={this.props.zip} onChange={this.updateAddress}/>
+	            <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' value={this.props.zip} onChange={this.props.updateAddress}/>
 	            <Button fluid type='sumbit'>submit.</Button>
             </Form>
 
