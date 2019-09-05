@@ -3,6 +3,7 @@ import { Menu, Icon, Button } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 
+
 class UserMenu extends Component {
 	constructor(){
 		super()
@@ -23,6 +24,12 @@ class UserMenu extends Component {
 			<div>
 				{this.props.loggedIn ? 
 					<Menu verticle="true">
+						<Menu.Item
+								name=''
+								onClick={this.handleClick}
+							>
+								palce order.
+						</Menu.Item>
 						<Menu.Item
 							name='order-status'
 							onClick={this.handleClick}
