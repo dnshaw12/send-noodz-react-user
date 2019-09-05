@@ -123,16 +123,18 @@ class ReviewOrder extends Component {
 				}
 
 				return(
-					<Collapsible trigger={dish.menuItemId.name + '.'}>
-						<ul>
-							<li>noodz: {noodles}</li>
-							<li>protein: {proteins}</li>
-							<li>sauce: {sauces}</li>
-							<li>ingredients: {normals}</li>
-							<li>total: {total}</li>
-						</ul>
+					<Segment>
+						<Collapsible trigger={dish.menuItemId.name + '.'}>
+							<ul>
+								<li>noodz: {noodles}</li>
+								<li>protein: {proteins}</li>
+								<li>sauce: {sauces}</li>
+								<li>ingredients: {normals}</li>
+								<li>total: {total}</li>
+							</ul>
 
-					</Collapsible>
+						</Collapsible>
+					</Segment>
 				)
 			})
 		}
@@ -161,22 +163,23 @@ class ReviewOrder extends Component {
             </Form>
 
             :
+            <Segment>
+	            <p>Address:<br/>
+	            	{this.props.addr1 + ' ' + this.props.addr2}<br/>
+	            	{this.props.city + ', ' + this.props.state + ' ' + this.props.zip}<br/>
+	            	<Button onClick={this.toggleEdit}>update address.</Button>
+	            </p>
+					<Button 
+						onClick={this.props.confirmOrder}
+					>
+						send me nooooodz.
 
-            <p>Address:<br/>
-            	{this.props.addr1 + ' ' + this.props.addr2}<br/>
-            	{this.props.city + ', ' + this.props.state + ' ' + this.props.zip}<br/>
-            	<Button onClick={this.toggleEdit}>update address.</Button>
-            </p>
+					</Button>
+				</Segment>
 
 				}
 
 
-				<Button 
-					onClick={this.props.confirmOrder}
-				>
-					send me nooooodz.
-
-				</Button>
 			</Segment>
 		)
 

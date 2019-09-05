@@ -5,6 +5,7 @@ import UserMenu from './UserMenu'
 import SignUp from './SignUp'
 import Login from './Login'
 import OrderCreation from './OrderCreation'
+import OrderStatus from './OrderStatus'
 
 class App extends Component {
 
@@ -122,6 +123,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp}/>  } />
           <Route exact path='/login' render={(props) => <Login {...props} login={this.login}/>  } />
+          <Route exact path='/order-status' render={(props) => <OrderStatus {...props} userId={this.state.userId}/>  } />
           <Route exact path='/' render={(props) => <OrderCreation {...props} {...this.state}/>  } />
         </Switch>
       </main>
