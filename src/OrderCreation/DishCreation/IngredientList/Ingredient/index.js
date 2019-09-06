@@ -12,15 +12,6 @@ class Ingredient extends Component {
 
 	componentDidMount = () => {
 
-		console.log(this.props.ingredient);
-		console.log(this.props.extraIngredients.some( ingredient1 => ingredient1._id === this.props.ingredient._id));
-
-		console.log(this.props.extraIngredients,'extraIngredients');
-
-		this.props.extraIngredients.forEach( ing => {
-			console.log(ing._id, this.props.ingredient._id,ing._id === this.props.ingredient._id)
-		})
-
 		if (this.props.extraIngredients.some( ingredient1 => ingredient1 === this.props.ingredient._id)) {
 			this.setState({
 				selected: true
@@ -28,22 +19,26 @@ class Ingredient extends Component {
 		}
 	}
 
-	handleClick = (id,e) => {
-		console.log(e.target, id);
+	handleClick = (e) => {
 
-		this.props.handleIngredientSelection(id, this.state.selected)
+		if (this.props.ingredient.inStock) {
+			this.props.handleIngredientSelection(this.props.ingredient._id, this.state.selected)
 
-		this.setState({
-			selected: !this.state.selected
-		})
+			this.setState({
+				selected: !this.state.selected
+			})	
+		}
+
 	}
 
 	render(){
 
+		const inStock = this.props.ingredient.inStock ? 'inStock' : 'outOfStock'
+
 		return(
 
-			<Card id={this.props.ingredient._id} onClick={this.handleClick.bind(null, this.props.ingredient._id)}>
-				<Card.Content>
+			<Card id={this.props.ingredient._id} onClick={this.handleClick}>
+				<Card.Content className={inStock}>
 					<Card.Header>{this.props.ingredient.name}</Card.Header>
 					{ this.props.ingredient.price ? this.props.ingredient.price : null}
 					{ this.state.selected ? 'selected' : null }

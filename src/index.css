@@ -8,3 +8,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.outOfStock {
+	text-decoration: line-through;
+	color: grey;
+}
+
+.outOfStock > .header {
+	color: grey !important;
+}
