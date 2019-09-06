@@ -18,6 +18,7 @@ class OrderCreation extends Component {
 			city: '', 
 			state: '', 
 			zip: '',
+			deliveryInstructions: '',
 			menuItems: [],
 			byonMenuItem: {},
 			noodles: [],
@@ -32,48 +33,48 @@ class OrderCreation extends Component {
 	componentDidMount = async () => {
 
 		if (this.props.loggedIn) {
+
+			const menuItemsResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/menuItems')
+
+			const parsedResponse = await menuItemsResponse.json()
+
+			console.log(parsedResponse);
+
+			const regularMenuItems = parsedResponse.data.filter( item => item.name !== 'byon')
+			const byonMenuItem = parsedResponse.data[parsedResponse.data.findIndex( item => item.name === 'byon')]
+
+			const ingredientResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/ingredients')
+
+			const parsedResponse2 = await ingredientResponse.json()
+
+			const availableIngredients = parsedResponse2.data.filter( ingredient => !ingredient.archived)
+
+			const noodles = availableIngredients.filter( ingredient => ingredient.type === 'noodle' && ingredient.name !== 'custom')
+
+			const proteins = availableIngredients.filter( ingredient => ingredient.type === 'protein' && ingredient.name !== 'custom')
+
+			const sauces = availableIngredients.filter( ingredient => ingredient.type === 'sauce' && ingredient.name !== 'custom')
+
+			const normals = availableIngredients.filter( ingredient => ingredient.type === 'normal' && ingredient.name !== 'custom')
+
 			this.setState({
 				...this.props.address,
 				userId: this.props._id,
 	      	name: this.props.name,
 	      	email: this.props.email,
 	      	phoneNumber: this.props.phoneNumber,
-	      	profilePic: this.props.profilePic
+	      	profilePic: this.props.profilePic,
+				menuItems: regularMenuItems,
+				byonMenuItem: byonMenuItem,
+				noodles: noodles,
+				proteins: proteins,
+				sauces: sauces,
+				normals: normals
 			})
-
 		} else {
 			this.props.history.push('/login')
 		}
 
-		const menuItemsResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/menuItems')
-
-		const parsedResponse = await menuItemsResponse.json()
-
-		console.log(parsedResponse);
-
-		const regularMenuItems = parsedResponse.data.filter( item => item.name !== 'byon')
-		const byonMenuItem = parsedResponse.data[parsedResponse.data.findIndex( item => item.name === 'byon')]
-
-		const ingredientResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/ingredients')
-
-		const parsedResponse2 = await ingredientResponse.json()
-
-		const noodles = parsedResponse2.data.filter( ingredient => ingredient.type === 'noodle' && ingredient.name !== 'custom')
-
-		const proteins = parsedResponse2.data.filter( ingredient => ingredient.type === 'protein' && ingredient.name !== 'custom')
-
-		const sauces = parsedResponse2.data.filter( ingredient => ingredient.type === 'sauce' && ingredient.name !== 'custom')
-
-		const normals = parsedResponse2.data.filter( ingredient => ingredient.type === 'normal' && ingredient.name !== 'custom')
-
-		this.setState({
-			menuItems: regularMenuItems,
-			byonMenuItem: byonMenuItem,
-			noodles: noodles,
-			proteins: proteins,
-			sauces: sauces,
-			normals: normals
-		})
 	}
 
 	handleDeliveryClick = (e) => {
@@ -175,7 +176,8 @@ class OrderCreation extends Component {
 		        		addr2: this.state.addr2,
 		        		city: this.state.city,
 		        		state: this.state.state,
-		        		zip: this.state.zip
+		        		zip: this.state.zip,
+		        		deliveryInstructions: this.state.deliveryInstructions
 		        	}),
 		        	headers: {
 		         	'Content-Type': 'application/json'
@@ -189,7 +191,7 @@ class OrderCreation extends Component {
 		}
 	}
 
-	updateAddress = (e) => {
+	updateState = (e) => {
 
 		console.log(this.state);
 
@@ -234,7 +236,7 @@ class OrderCreation extends Component {
 				<ReviewOrder 
 					orderId={this.state.orderId}
 					confirmOrder={this.confirmOrder}
-					updateAddress={this.updateAddress}
+					updateState={this.updateState}
 					addr1={this.state.addr1}
 	        		addr2={this.state.addr2}
 	        		city={this.state.city}

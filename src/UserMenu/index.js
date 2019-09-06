@@ -28,7 +28,7 @@ class UserMenu extends Component {
 								name=''
 								onClick={this.handleClick}
 							>
-								palce order.
+								place order.
 						</Menu.Item>
 						<Menu.Item
 							name='order-status'
