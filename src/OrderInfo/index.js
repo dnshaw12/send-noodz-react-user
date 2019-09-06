@@ -31,14 +31,19 @@ class OrderInfo extends Component {
 				<h4>dishes:</h4>
 				{dishes}
 
-				<Segment>
+				{ this.props.order.status !== 'archived' ?
 
-					<Collapsible trigger='view status.'>
-						status: {this.props.order.status}
+					<Segment>
+						<Collapsible trigger='view status.'>
+							status: {this.props.order.status}
 
-					</Collapsible>
+						</Collapsible>
+					</Segment>
+				:
 
-				</Segment>
+					null
+
+				}
 			</Segment>
 
 		)

@@ -3,7 +3,7 @@ import { Button, Segment, Form } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
 import OrderInfo from '../OrderInfo'
 
-class OrderStatus extends Component {
+class PastOrders extends Component {
 
 	constructor(){
 		super()
@@ -21,7 +21,7 @@ class OrderStatus extends Component {
 			this.props.history.push('/login')
 		}
 
-		const orderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.props.userId + '/active')
+		const orderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.props.userId + '/past')
 
 		const parsedResponse = await orderResponse.json()
 
@@ -59,4 +59,4 @@ class OrderStatus extends Component {
 
 
 
-export default OrderStatus
+export default PastOrders
