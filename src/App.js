@@ -18,7 +18,7 @@ class App extends Component {
       name: '',
       email: '',
       phoneNumber: '',
-      profilePic: {}
+      message: ''
     }
   }
 
@@ -106,6 +106,8 @@ class App extends Component {
           ...parsedResponse.data,
           loggedIn: true
         })  
+      } else {
+        this.setState({message: parsedResponse.message})
       }
 
       return loginResponse.status 
@@ -141,7 +143,7 @@ class App extends Component {
         <UserMenu loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp}/>  } />
-          <Route exact path='/login' render={(props) => <Login {...props} login={this.login}/>  } />
+          <Route exact path='/login' render={(props) => <Login {...props} login={this.login} message={this.state.message}/>  } />
           <Route exact path='/order-status' render={(props) => <OrderStatus {...props} userId={this.state.userId} makePrettyDate={this.makePrettyDate} loggedIn={this.state.loggedIn}/>  } />
           <Route exact path='/past-orders' render={(props) => <PastOrders {...props} userId={this.state.userId} makePrettyDate={this.makePrettyDate} loggedIn={this.state.loggedIn}/>  } />
           <Route exact path='/' render={(props) => <OrderCreation {...props} {...this.state}/>  } />

@@ -19,6 +19,7 @@ class OrderCreation extends Component {
 			state: '', 
 			zip: '',
 			deliveryInstructions: '',
+			status: 'pending',
 			menuItems: [],
 			byonMenuItem: {},
 			noodles: [],
@@ -114,8 +115,6 @@ class OrderCreation extends Component {
 			dishes: newDishArr
 		})
 
-		console.log(this.state.newDishArr);
-
 	}
 
 	reviewOrder = async () => {
@@ -124,7 +123,23 @@ class OrderCreation extends Component {
 
 			let parsedResponse;
 
+			const data = new FormData();
+	      data.append('userId', this.state.userId);
+	      data.append('delivery', this.state.delivery);
+	      data.append('dishes', this.state.dishes);
+
+
+	      data.append('status', this.state.status);
+	      data.append('addr1', this.state.addr1);
+	      data.append('addr2', this.state.addr2);
+	      data.append('city', this.state.city);
+	      data.append('state', this.state.state);
+	      data.append('zip', this.state.zip);
+	      data.append('deliveryInstructions', this.state.deliveryInstructions);
+
 			if (this.state.orderId) {
+
+
 
 				const updatedOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
 					method: 'PUT',
@@ -144,6 +159,7 @@ class OrderCreation extends Component {
 		        	credentials: 'include',
 		        	body: JSON.stringify(this.state),
 		        	headers: {
+		         	// 'enctype': 'multipart/form-data'
 		         	'Content-Type': 'application/json'
 	       		}
 				})
@@ -167,17 +183,26 @@ class OrderCreation extends Component {
 	confirmOrder = async ()  => {
 		try {
 
+			const data = new FormData();
+	      data.append('status', 'received');
+	      data.append('addr1', this.state.addr1);
+	      data.append('addr2', this.state.addr2);
+	      data.append('city', this.state.city);
+	      data.append('state', this.state.state);
+	      data.append('zip', this.state.zip);
+	      data.append('deliveryInstructions', this.state.deliveryInstructions);
+
 			const updatedOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
 					method: 'PUT',
 		        	credentials: 'include',
 		        	body: JSON.stringify({
-		        		status: 'received',
 		        		addr1: this.state.addr1,
-		        		addr2: this.state.addr2,
-		        		city: this.state.city,
-		        		state: this.state.state,
-		        		zip: this.state.zip,
-		        		deliveryInstructions: this.state.deliveryInstructions
+				      addr2: this.state.addr2,
+				      city: this.state.city,
+				      state: this.state.state,
+				      zip: this.state.zip,
+				      status: 'received',
+				      deliveryInstructions: this.state.deliveryInstructions
 		        	}),
 		        	headers: {
 		         	'Content-Type': 'application/json'
@@ -185,6 +210,8 @@ class OrderCreation extends Component {
 				})
 
 				const parsedResponse = await updatedOrderResponse.json()
+
+				console.log(parsedResponse);
 			
 		} catch(err){
 		  console.log(err);
@@ -205,7 +232,7 @@ class OrderCreation extends Component {
 
 			{this.state.stages[this.state.stage] === 'initiation' ? 
 
-				<Segment>
+				<Segment className='fullSegment'>
 					<Button name='delivery' onClick={this.handleDeliveryClick}>delivery.</Button>
 					<Button name='pickup' onClick={this.handleDeliveryClick}>pick up.</Button>
 				</Segment>
@@ -225,6 +252,7 @@ class OrderCreation extends Component {
 					proteins={this.state.proteins}
 					sauces={this.state.sauces}
 					normals={this.state.normals}
+					totalDishes={this.state.dishes.length}
 				/>
 			
 				:

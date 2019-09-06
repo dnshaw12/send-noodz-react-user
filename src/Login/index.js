@@ -42,23 +42,24 @@ class Login extends Component {
       
          <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
             <Grid.Column >
-               <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
-                  <Segment textAlign='left'>
-	               <Header as='h2' textAlign='center'>
-	                  login.
-	               </Header>
-                     email:
-                     <Form.Input fluid icon='mail' iconPosition='left' placeholder='email.' type='text' name='email' onChange={this.handleChange}/>
-                     password:
-                     <Form.Input fluid icon='lock' placeholder='password.' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
-                     <Button fluid size='large' type='sumbit'>login.</Button>
+            <Segment>
+                  <Form className='form' onSubmit={this.handleSubmit} enctype="multipart/form-data">
+   	               <Header as='h2' textAlign='center'>
+   	                  login.
+   	               </Header>
+                     <p>{this.props.message}</p>
+                        email:
+                        <Form.Input fluid icon='mail' iconPosition='left' placeholder='email.' type='text' name='email' onChange={this.handleChange}/>
+                        password:
+                        <Form.Input fluid icon='lock' placeholder='password.' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
+                        <Button fluid size='large' type='sumbit'>login.</Button>
 
-                     <Message>
-                        not a receiver of noodz yet? <Link to='/sign-up'>sign up.</Link>
-                     </Message>
-             
-                  </Segment>
-               </Form>
+                        <Message>
+                           not a receiver of noodz yet? <Link to='/sign-up'>sign up.</Link>
+                        </Message>
+                
+                  </Form>
+               </Segment>
             </Grid.Column>
          </Grid>
       )

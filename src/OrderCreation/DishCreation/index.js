@@ -135,11 +135,9 @@ class DishCreation extends Component {
 
 			const parsedResponse = await newDishResponse.json()
 
-			console.log(newDishResponse.status, parsedResponse);
-
 			if (newDishResponse.status === 201) {
 
-				this.props.addDish(parsedResponse.data)
+				this.props.addDish(parsedResponse.data._id)
 
 				this.setState({
 					menuItemId: '',
@@ -185,18 +183,25 @@ class DishCreation extends Component {
 	render(){
 		return(
 
-			<Segment>
+			<Segment className='fullSegment'>
 
 			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
 
-				<div>
+				<div className='backNext'>
 
-					<Button onClick={this.handleBackClick}>go back.</Button>
+					<Button className='backButton' onClick={this.handleBackClick}>go back.</Button>
 
 					{ 
 						this.state.stage !== 'typeChoice' 
 					? 
-						<Button onClick={this.handleNextClick}>next.</Button>
+						this.state.stage === 'menuItem' 
+							&& this.state.stageIndex === 0 ?
+
+							null
+
+							:
+
+								<Button className='nextButton' onClick={this.handleNextClick}>next.</Button>
 					:
 						null
 					}
@@ -209,7 +214,7 @@ class DishCreation extends Component {
 
 			{ this.state.stage === 'typeChoice' ? 
 
-				<Segment>
+				<Segment className='fullSegment'>
 					<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
 					<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
 				</Segment>
@@ -356,7 +361,7 @@ class DishCreation extends Component {
 
 			{this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
 					
-				<Segment>
+				<Segment className='fullSegment'>
 					<Button onClick={this.startNewDish}>add more noodz.</Button>
 					<Button onClick={this.reviewOrder}>review noodz order.</Button>
 				</Segment>
@@ -365,7 +370,7 @@ class DishCreation extends Component {
 
 				null}
 
-			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
+			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' && this.props.totalDishes ?
 
 				<Button onClick={this.reviewOrder}>review my noodz order.</Button>
 

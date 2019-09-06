@@ -17,6 +17,7 @@ class Ingredient extends Component {
 				selected: true
 			})
 		}
+
 	}
 
 	handleClick = (e) => {
@@ -35,13 +36,14 @@ class Ingredient extends Component {
 
 		const inStock = this.props.ingredient.inStock ? 'inStock' : 'outOfStock'
 
+		const selected = this.state.selected ? 'selectedIngredient' : ''
+
 		return(
 
 			<Card id={this.props.ingredient._id} onClick={this.handleClick}>
-				<Card.Content className={inStock}>
+				<Card.Content className={inStock + ' ' + selected}>
 					<Card.Header>{this.props.ingredient.name}</Card.Header>
 					{ this.props.ingredient.price ? this.props.ingredient.price : null}
-					{ this.state.selected ? 'selected' : null }
 				</Card.Content>
 			</Card>
 

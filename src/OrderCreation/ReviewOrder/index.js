@@ -156,45 +156,66 @@ class ReviewOrder extends Component {
 			<Segment>
 				{dishes}
 
-				{this.state.editActive ? 
+			{ this.state.order ? 
 
-				<Form onSubmit={this.toggleEdit}>
-					address 1:
-	            <Form.Input fluid icon='home' iconPosition='left' placeholder='address 1.' type='text' name='addr1' value={this.props.addr1} onChange={this.props.updateState}/>
-	            address 2:
-	            <Form.Input fluid iconPosition='left' placeholder='address 2.' type='text' name='addr2' value={this.props.addr2} onChange={this.props.updateState}/>
-	            city:
-	            <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' value={this.props.city} onChange={this.props.updateState}/>
-	            state:
-	            <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' value={this.props.state} onChange={this.props.updateState}/>
-	            zip:
-	            <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' value={this.props.zip} onChange={this.props.updateState}/>
-	            <Button fluid type='sumbit'>submit.</Button>
-            </Form>
+				<Segment>
 
-            :
-            <Segment>
-	            <p>address:<br/>
-	            	{this.props.addr1 + ' ' + this.props.addr2}<br/>
-	            	{this.props.city + ', ' + this.props.state + ' ' + this.props.zip}<br/>
-	            	<Button onClick={this.toggleEdit}>update address.</Button>
-	            </p>
-	            <p>
-	            	delivery instructions: <br/>
-	            	<textarea name='deliveryInstructions' placeholder='delivery instructions.' onChange={this.props.updateState}/>
+				{ this.state.order.delivery ? 
+
+					<Segment>
+
+						{this.state.editActive ? 
+
+						<Form onSubmit={this.toggleEdit}>
+							address 1:
+			            <Form.Input fluid icon='home' iconPosition='left' placeholder='address 1.' type='text' name='addr1' value={this.props.addr1} onChange={this.props.updateState}/>
+			            address 2:
+			            <Form.Input fluid iconPosition='left' placeholder='address 2.' type='text' name='addr2' value={this.props.addr2} onChange={this.props.updateState}/>
+			            city:
+			            <Form.Input fluid iconPosition='left' placeholder='city.' type='text' name='city' value={this.props.city} onChange={this.props.updateState}/>
+			            state:
+			            <Form.Input fluid iconPosition='left' placeholder='state.' type='text' name='state' value={this.props.state} onChange={this.props.updateState}/>
+			            zip:
+			            <Form.Input fluid iconPosition='left' placeholder='zip.' type='text' name='zip' value={this.props.zip} onChange={this.props.updateState}/>
+			            <Button fluid type='sumbit'>submit.</Button>
+		            </Form>
+
+		            :
+		            <Segment>
+			            <p>address:<br/>
+			            	{this.props.addr1 + ' ' + this.props.addr2}<br/>
+			            	{this.props.city + ', ' + this.props.state + ' ' + this.props.zip}<br/>
+			            	<Button onClick={this.toggleEdit}>update address.</Button>
+			            </p>
+			            <p>
+			            	delivery instructions: <br/>
+			            	<textarea name='deliveryInstructions' placeholder='delivery instructions.' onChange={this.props.updateState}/>
 
 
-	            </p>
-					<Button 
-						onClick={this.props.confirmOrder}
-					>
-						send me nooooodz.
+			            </p>
+						</Segment>
 
-					</Button>
-				</Segment>
+						}
+
+					</Segment>
+
+					:
+
+					<p>order type: pick-up.</p>
 
 				}
 
+				</Segment>
+
+				:
+
+				null
+
+			}
+
+				<Button onClick={this.props.confirmOrder}>
+					send me nooooodz.
+				</Button>
 
 			</Segment>
 		)

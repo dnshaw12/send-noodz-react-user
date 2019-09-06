@@ -28,7 +28,8 @@ const MenuItemList = (props) => {
 
 	return(
 
-		<Segment>
+		<Segment className='listSegment'>
+			<h1>pre-set dishes.</h1>
 			{menuItemList}
 		</Segment>
 

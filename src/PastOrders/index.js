@@ -46,7 +46,7 @@ class PastOrders extends Component {
 
 		return(
 
-			<Segment>
+			<Segment className='fullSegment'>
 				{orders}
 			</Segment>
 

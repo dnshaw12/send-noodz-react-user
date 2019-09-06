@@ -55,7 +55,7 @@ const ConfirmDish = (props) => {
 
 	return(
 
-		<Segment>
+		<Segment className='contentSegment'>
 			<h2>{props.currentMenuItem.name}</h2>
 			<ul>
 				<li>noodles: {noodleType}.</li>
