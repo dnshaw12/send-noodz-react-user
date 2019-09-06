@@ -28,10 +28,10 @@ class Ingredient extends Component {
 		}
 	}
 
-	handleClick = (e) => {
-		console.log(e.target.id);
+	handleClick = (id,e) => {
+		console.log(e.target, id);
 
-		this.props.handleIngredientSelection(e.target.id, this.state.selected)
+		this.props.handleIngredientSelection(id, this.state.selected)
 
 		this.setState({
 			selected: !this.state.selected
@@ -42,10 +42,12 @@ class Ingredient extends Component {
 
 		return(
 
-			<Card id={this.props.ingredient._id} onClick={this.handleClick}>
-				{this.props.ingredient.name}
-				{ this.props.ingredient.price ? this.props.ingredient.price : null}
-				{ this.state.selected ? 'selected' : null }
+			<Card id={this.props.ingredient._id} onClick={this.handleClick.bind(null, this.props.ingredient._id)}>
+				<Card.Content>
+					<Card.Header>{this.props.ingredient.name}</Card.Header>
+					{ this.props.ingredient.price ? this.props.ingredient.price : null}
+					{ this.state.selected ? 'selected' : null }
+				</Card.Content>
 			</Card>
 
 		)

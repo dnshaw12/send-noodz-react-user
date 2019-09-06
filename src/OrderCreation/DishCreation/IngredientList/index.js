@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment} from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import Ingredient from './Ingredient'
 
 const IngredientList = (props) => {
@@ -24,9 +24,9 @@ const IngredientList = (props) => {
 
 	return(
 
-		<Segment>
+		<Card.Group>
 			{ingredientList}
-		</Segment>
+		</Card.Group>
 
 	)
 
