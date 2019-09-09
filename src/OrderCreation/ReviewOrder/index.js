@@ -125,7 +125,7 @@ class ReviewOrder extends Component {
 							return ingredient.name
 						}
 
-						return acc + ', ' +ingredient.name
+						return ingredient.name + ', ' + acc
 					} else {
 						return acc
 					}

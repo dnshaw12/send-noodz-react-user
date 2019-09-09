@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
-import Collapsible from 'react-collapsible';
 
 import MenuItemList from './MenuItemList'
 import IngredientList from './IngredientList'
@@ -185,7 +184,7 @@ class DishCreation extends Component {
 
 			<Segment className='fullSegment'>
 
-			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ?
+			{ (this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt') ?
 
 				<div className='backNext'>
 
@@ -359,7 +358,7 @@ class DishCreation extends Component {
 
 			}
 
-			{this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt' ?
+			{(this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt') ?
 					
 				<Segment className='fullSegment'>
 					<Button onClick={this.startNewDish}>add more noodz.</Button>
@@ -370,7 +369,10 @@ class DishCreation extends Component {
 
 				null}
 
-			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt' || this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' && this.props.totalDishes ?
+			{ (this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || 
+				(this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' && this.props.totalDishes) 
+
+				?
 
 				<Button onClick={this.reviewOrder}>review my noodz order.</Button>
 

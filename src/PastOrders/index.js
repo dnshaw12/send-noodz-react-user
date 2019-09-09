@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Segment, Form } from 'semantic-ui-react';
-import Collapsible from 'react-collapsible';
+import { Segment} from 'semantic-ui-react';
 import OrderInfo from '../OrderInfo'
 
 class PastOrders extends Component {

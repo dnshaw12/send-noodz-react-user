@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import UserMenu from './UserMenu'
 import SignUp from './SignUp'
@@ -81,9 +81,6 @@ class App extends Component {
 
   login = async (data) => {
 
-    for (let pair of data.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
-    }
 
     try {
       const loginResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/users/login', {

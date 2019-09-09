@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 import { Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -43,7 +42,7 @@ class Login extends Component {
          <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
             <Grid.Column >
             <Segment>
-                  <Form className='form' onSubmit={this.handleSubmit} enctype="multipart/form-data">
+                  <Form className='form' onSubmit={this.handleSubmit}>
    	               <Header as='h2' textAlign='center'>
    	                  login.
    	               </Header>
