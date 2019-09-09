@@ -46,6 +46,7 @@ class OrderStatus extends Component {
 		return(
 
 			<Segment className='fullSegment'>
+				<h1>active orders.</h1>
 				{orders}
 			</Segment>
 

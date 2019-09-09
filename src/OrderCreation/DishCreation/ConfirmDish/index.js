@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment, Button, Icon } from 'semantic-ui-react';
 
 const ConfirmDish = (props) => {
 
@@ -55,17 +55,21 @@ const ConfirmDish = (props) => {
 
 	return(
 
-		<Segment className='contentSegment'>
-			<h2>{props.currentMenuItem.name}</h2>
-			<ul>
-				<li>noodles: {noodleType}.</li>
-				<li>protein: {protein}.</li>
-				<li>sauce: {sauce}.</li>
-				<li>ingredients: {ingredients}</li>
-				<li>total: {total}</li>
-			</ul>
-			<textarea value={props.specialInstructions} onChange={props.updateSpecialInstructions} placeholder='special instructions.'/>
-			<Button onClick={props.createDish}>add to cart.</Button>
+		<Segment className='outerSegment'>
+			<Button className='backButton' onClick={props.handleBackClick}><Icon name='angle left' size='large'/></Button>
+
+			<Segment className='contentSegment'>
+				<h2>{props.currentMenuItem.name}</h2>
+				<ul>
+					<li>noodles: {noodleType}.</li>
+					<li>protein: {protein}.</li>
+					<li>sauce: {sauce}.</li>
+					<li>ingredients: {ingredients}</li>
+					<li>total: {total}</li>
+				</ul>
+				<textarea value={props.specialInstructions} onChange={props.updateSpecialInstructions} placeholder='special instructions.'/>
+				<Button onClick={props.createDish}>add to cart.</Button>
+			</Segment>
 		</Segment>
 
 	)

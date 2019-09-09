@@ -211,7 +211,7 @@ class OrderCreation extends Component {
 
 				const parsedResponse = await updatedOrderResponse.json()
 
-				console.log(parsedResponse);
+				this.props.history.push('/order-status')
 			
 		} catch(err){
 		  console.log(err);
@@ -232,7 +232,7 @@ class OrderCreation extends Component {
 
 			{this.state.stages[this.state.stage] === 'initiation' ? 
 
-				<Segment className='fullSegment'>
+				<Segment className='outerSegment'>
 					<Button name='delivery' onClick={this.handleDeliveryClick}>delivery.</Button>
 					<Button name='pickup' onClick={this.handleDeliveryClick}>pick up.</Button>
 				</Segment>

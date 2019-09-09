@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Segment} from 'semantic-ui-react';
+import { Button, Segment, Icon } from 'semantic-ui-react';
 
 import MenuItemList from './MenuItemList'
 import IngredientList from './IngredientList'
@@ -180,31 +180,15 @@ class DishCreation extends Component {
 
 
 	render(){
+
+		console.log(this.props.totalDishes, 'totalDishes');
 		return(
 
-			<Segment className='fullSegment'>
+			<Segment className='outerSegment'>
 
 			{ (this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt') ?
 
-				<div className='backNext'>
-
-					<Button className='backButton' onClick={this.handleBackClick}>go back.</Button>
-
-					{ 
-						this.state.stage !== 'typeChoice' 
-					? 
-						this.state.stage === 'menuItem' 
-							&& this.state.stageIndex === 0 ?
-
-							null
-
-							:
-
-								<Button className='nextButton' onClick={this.handleNextClick}>next.</Button>
-					:
-						null
-					}
-				</div>
+					<Button className='nextButton' onClick={this.handleNextClick}>next.</Button>
 			:
 
 				null
@@ -213,7 +197,8 @@ class DishCreation extends Component {
 
 			{ this.state.stage === 'typeChoice' ? 
 
-				<Segment className='fullSegment'>
+				<Segment className='outerSegment'>
+					<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
 					<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
 					<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
 				</Segment>
@@ -232,10 +217,16 @@ class DishCreation extends Component {
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
 					
-						<MenuItemList 
-							menuItems={this.state.menuItems} 
-							selectMenuItem={this.selectMenuItem}
-						/>
+						<Segment className='fullSegment'>
+							<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
+							<div className='spacer' />
+							<MenuItemList 
+								menuItems={this.state.menuItems} 
+								selectMenuItem={this.selectMenuItem}
+								handleBackClick={this.handleBackClick}
+							/>
+
+						</Segment>
 	
 					:
 	
@@ -248,6 +239,7 @@ class DishCreation extends Component {
 							currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
 							handleIngredientSelection={this.handleIngredientSelection}
 							extraIngredients={this.state.extraIngredients}
+							handleBackClick={this.handleBackClick}
 						/>
 	
 					:
@@ -263,6 +255,7 @@ class DishCreation extends Component {
 							createDish={this.createDish}
 							updateSpecialInstructions={this.updateSpecialInstructions}
 							specialInstructions={this.state.specialInstructions}
+							handleBackClick={this.handleBackClick}
 						/>
 	
 					:
@@ -290,6 +283,7 @@ class DishCreation extends Component {
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
 						extraIngredients={this.state.extraIngredients}
+						handleBackClick={this.handleBackClick}
 					/>
 
 				:
@@ -303,6 +297,7 @@ class DishCreation extends Component {
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
 						extraIngredients={this.state.extraIngredients}
+						handleBackClick={this.handleBackClick}
 					/>
 
 				:
@@ -316,6 +311,7 @@ class DishCreation extends Component {
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
 						extraIngredients={this.state.extraIngredients}
+						handleBackClick={this.handleBackClick}
 					/>
 
 				:
@@ -329,6 +325,7 @@ class DishCreation extends Component {
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
 						extraIngredients={this.state.extraIngredients}
+						handleBackClick={this.handleBackClick}
 					/>
 
 				:
@@ -344,6 +341,7 @@ class DishCreation extends Component {
 						createDish={this.createDish}
 						updateSpecialInstructions={this.updateSpecialInstructions}
 						specialInstructions={this.state.specialInstructions}
+						handleBackClick={this.handleBackClick}
 					/>
 
 				:
@@ -360,7 +358,7 @@ class DishCreation extends Component {
 
 			{(this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt') ?
 					
-				<Segment className='fullSegment'>
+				<Segment className='outerSegment'>
 					<Button onClick={this.startNewDish}>add more noodz.</Button>
 					<Button onClick={this.reviewOrder}>review noodz order.</Button>
 				</Segment>
@@ -369,17 +367,22 @@ class DishCreation extends Component {
 
 				null}
 
-			{ (this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || 
-				(this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' && this.props.totalDishes) 
+			<footer >
+
+			{ ((this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || 
+				(this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' && this.props.totalDishes)) 
+				&& this.props.totalDishes
 
 				?
 
-				<Button onClick={this.reviewOrder}>review my noodz order.</Button>
+				<Button className="reviewButton" onClick={this.reviewOrder}>review my noodz order.</Button>
 
 			:
 
-				null
+				<h2>send noodz.</h2>
 			}
+
+			</footer>
 
 
 

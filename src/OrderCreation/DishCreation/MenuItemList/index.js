@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Segment} from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
 
 const MenuItemList = (props) => {
@@ -11,16 +11,19 @@ const MenuItemList = (props) => {
 		},'')
 
 		return(
+			<Segment>
 
-			<Collapsible id={item._id} trigger={item.name}>
-				<ul>
-					<li>noodle: {item.noodleType.name}</li>
-					<li>protein: {item.protein.name}</li>
-					<li>sauce: {item.sauce.name}</li>
-					<li>ingredients: {baseIngredients}</li>
-				</ul>
-				<Button id={item._id} onClick={props.selectMenuItem}>select</Button>
-			</Collapsible>
+				<Collapsible id={item._id} trigger={item.name}>
+					<ul>
+						<li>noodle: {item.noodleType.name}</li>
+						<li>protein: {item.protein.name}</li>
+						<li>sauce: {item.sauce.name}</li>
+						<li>ingredients: {baseIngredients}</li>
+					</ul>
+					<Button id={item._id} onClick={props.selectMenuItem}>select</Button>
+				</Collapsible>
+
+			</Segment>
 
 			)
 

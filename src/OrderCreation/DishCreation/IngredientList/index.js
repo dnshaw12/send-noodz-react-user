@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button, Icon } from 'semantic-ui-react';
 import Ingredient from './Ingredient'
 
 const IngredientList = (props) => {
@@ -11,20 +11,19 @@ const IngredientList = (props) => {
 	const ingredientList = ingredientsNotIncluded.map( ingredient => {
 
 		return(
-
-			<Ingredient 
-				ingredient={ingredient} 
-				handleIngredientSelection={props.handleIngredientSelection}
-				extraIngredients={props.extraIngredients}
-			/>
-
+				<Ingredient 
+					ingredient={ingredient} 
+					handleIngredientSelection={props.handleIngredientSelection}
+					extraIngredients={props.extraIngredients}
+				/>
 			)
 
 	})
 
 	return(
 
-		<Card.Group>
+		<Card.Group className='fullSegment'>
+		<Button className='backButton' onClick={props.handleBackClick}><Icon name='angle left' size='large'/></Button>
 			{ingredientList}
 		</Card.Group>
 
