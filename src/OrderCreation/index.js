@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
 import DishCreation from './DishCreation'
 import ReviewOrder from './ReviewOrder'
+import socketIOClient from 'socket.io-client'
+
+const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 class OrderCreation extends Component {
 
@@ -34,6 +37,10 @@ class OrderCreation extends Component {
 	componentDidMount = async () => {
 
 		if (this.props.loggedIn) {
+
+			socket.on('new order', data => {
+		      console.log('your new order', data);
+		    })
 
 			const menuItemsResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/menuItems')
 

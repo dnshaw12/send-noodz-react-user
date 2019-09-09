@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import socketIOClient from 'socket.io-client'
 
 import UserMenu from './UserMenu'
 import SignUp from './SignUp'
@@ -7,6 +8,8 @@ import Login from './Login'
 import OrderCreation from './OrderCreation'
 import OrderStatus from './OrderStatus'
 import PastOrders from './PastOrders'
+
+const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 class App extends Component {
 
