@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import DishInfo from './DishInfo'
 import { Segment } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
+import socketIOClient from 'socket.io-client'
+
+const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 class OrderInfo extends Component {
 
@@ -9,19 +12,42 @@ class OrderInfo extends Component {
 		super()
 
 		this.state = {
+			updatedStatus: false,
+			status: null
 		}
+	}
+
+	componentDidMount(){
+		if (this.props.order) {
+			this.setState({status:this.props.order.status})
+		}
+	}
+
+	toggleUpdated = () => {
+		console.log('TOGGLE');
+		this.setState({updatedStatus:false})
 	}
 
 
 	render(){
+
 		let dishes
 
 		if (this.props.order) {
 			dishes = this.props.order.dishes.map( dish => {
 				return <DishInfo dish={dish} />
 			})
+
+			socket.on('status update: ' + this.props.order._id, data => {
+			   console.log('new status', data);
+			   this.setState({
+			   	updatedStatus: true,
+			   	status: data
+			   })
+			})
 		}
 
+		const updated = this.state.updatedStatus ? 'updatedStatus' : ''
 
 		return(
 
@@ -34,8 +60,12 @@ class OrderInfo extends Component {
 				{ this.props.order.status !== 'archived' ?
 
 					<Segment>
-						<Collapsible trigger='view status.'>
-							status: {this.props.order.status}
+						<Collapsible
+							className={updated} 
+							trigger={this.state.updatedStatus ? 'an update regarding your noodz.' : 'view status.'}
+							onOpen={this.toggleUpdated}
+						>
+							status: {this.state.status}
 
 						</Collapsible>
 					</Segment>

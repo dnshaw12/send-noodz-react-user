@@ -185,3 +185,7 @@ footer {
  	display: inline-block;
  }
 
+.updatedStatus {
+	color: white;
+	background-color: rgb(255, 200, 57);
+}
