@@ -37,7 +37,7 @@ class Login extends Component {
 
       return (
       
-            <Segment className='fullSegment'>
+            <div className='fullSegment'>
                <Form className='form' onSubmit={this.handleSubmit}>
 	               <Header as='h2' textAlign='center'>
 	                  login.
@@ -54,7 +54,7 @@ class Login extends Component {
                      </Message>
              
                </Form>
-            </Segment>
+            </div>
       )
   }
 }

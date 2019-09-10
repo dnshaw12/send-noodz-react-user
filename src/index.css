@@ -38,7 +38,8 @@ code {
 	justify-content: space-around !important;
 	align-items: center;
 	border-radius: 0px !important;
-	/*padding: 60px 0px 0px 0px !important;*/
+	border: white !important; 
+	padding: white !important;
 }
 
 .outerSegment {
@@ -50,7 +51,8 @@ code {
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 0px !important;
-	padding-top: 60px !important; 
+	padding-top: 60px !important;
+	border: white; 
 }
 
 .listSegment > .segment {
@@ -69,6 +71,12 @@ button {
 		-1.5px 1.5px 0 rgb(204, 148, 3),
 		1.5px 1.5px 0 rgb(204, 148, 3) !important;
 	border-radius: 0px !important;
+}
+
+body ::-webkit-scrollbar {
+   -webkit-appearance: none;
+   width: 0px;
+   height: 0px;
 }
 
 .menu {
@@ -243,4 +251,19 @@ footer {
 	border-bottom: 0;
 	margin-top: -10px;
 	margin-right: -20px;
+}
+
+@media screen and (min-width: 700px) {
+
+	.fullSegment, .outerSegment {
+		max-width: 50vw;
+	}
+
+	body {
+		/*background-color: red;*/
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
 }
