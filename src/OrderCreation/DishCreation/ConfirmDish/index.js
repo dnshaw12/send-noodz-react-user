@@ -55,7 +55,7 @@ const ConfirmDish = (props) => {
 
 	return(
 
-		<Segment className='outerSegment'>
+		<div >
 			<Button className='backButton' onClick={props.handleBackClick}><Icon name='angle left' size='large'/></Button>
 
 			<Segment className='contentSegment'>
@@ -70,7 +70,7 @@ const ConfirmDish = (props) => {
 				<textarea value={props.specialInstructions} onChange={props.updateSpecialInstructions} placeholder='special instructions.'/>
 				<Button onClick={props.createDish}>add to cart.</Button>
 			</Segment>
-		</Segment>
+		</div>
 
 	)
 }

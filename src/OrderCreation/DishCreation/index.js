@@ -171,22 +171,14 @@ class DishCreation extends Component {
 
 			<Segment className='outerSegment'>
 
-			{ (this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt') ?
-
-					<Button className='nextButton' onClick={this.handleNextClick}>next.</Button>
-			:
-
-				null
-			}
-
 
 			{ this.state.stage === 'typeChoice' ? 
 
-				<Segment className='outerSegment'>
-					<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
-					<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
-					<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
-				</Segment>
+					<div className='fullSegment'>
+						<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
+						<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
+						<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
+					</div>
 
 				:
 
@@ -194,15 +186,15 @@ class DishCreation extends Component {
 
 			}
 
-			{ this.state.stage === 'menuItem' ? 
+			{ this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] !== 'addAnotherPrompt' ? 
 
 				// MENU ITEM PATHS GO HERE
 
-				<div>
+				<div className='fullSegment'>
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'dishChoice' ?
 					
-						<Segment className='fullSegment'>
+						<div>
 							<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
 							<div className='spacer' />
 							<MenuItemList 
@@ -211,7 +203,7 @@ class DishCreation extends Component {
 								handleBackClick={this.handleBackClick}
 							/>
 
-						</Segment>
+						</div>
 	
 					:
 	
@@ -219,7 +211,8 @@ class DishCreation extends Component {
 
 					{this.state.menuItemStages[this.state.stageIndex] === 'extraIngredients' ?
 					
-						<IngredientList  
+						<IngredientList 
+							handleNextClick={this.handleNextClick} 
 							ingredients={this.state.normals}
 							currentMenuItemIngredients={this.state.menuItems[this.state.menuItems.findIndex( item => item._id === this.state.menuItemId)].baseIngredients}
 							handleIngredientSelection={this.handleIngredientSelection}
@@ -255,15 +248,16 @@ class DishCreation extends Component {
 
 			}
 
-			{ this.state.stage === 'byon' ? 
+			{ this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] !== 'addAnotherPrompt'  ? 
 
 				// BYON PATHS GO HERE
 
-				<div>
+				<div className='fullSegment'>
 
 				{this.state.byonStages[this.state.stageIndex] === 'noodleChoice' ?
 				
 					<IngredientList  
+						handleNextClick={this.handleNextClick} 
 						ingredients={this.state.noodles}
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
@@ -278,6 +272,7 @@ class DishCreation extends Component {
 				{this.state.byonStages[this.state.stageIndex] === 'proteinChoice' ?
 				
 					<IngredientList  
+						handleNextClick={this.handleNextClick} 
 						ingredients={this.state.proteins}
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
@@ -291,7 +286,8 @@ class DishCreation extends Component {
 
 				{this.state.byonStages[this.state.stageIndex] === 'sauceChoice' ?
 				
-					<IngredientList  
+					<IngredientList 
+						handleNextClick={this.handleNextClick}  
 						ingredients={this.state.sauces}
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
@@ -306,6 +302,7 @@ class DishCreation extends Component {
 				{this.state.byonStages[this.state.stageIndex] === 'extraIngredients' ?
 				
 					<IngredientList  
+						handleNextClick={this.handleNextClick}  
 						ingredients={this.state.normals}
 						currentMenuItemIngredients={this.state.byonMenuItem.baseIngredients}
 						handleIngredientSelection={this.handleIngredientSelection}
@@ -343,10 +340,10 @@ class DishCreation extends Component {
 
 			{(this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt') ?
 					
-				<Segment className='outerSegment'>
+				<div className='fullSegment'>
 					<Button onClick={this.startNewDish}>add more noodz.</Button>
 					<Button onClick={this.reviewOrder}>review noodz order.</Button>
-				</Segment>
+				</div>
 
 			:
 

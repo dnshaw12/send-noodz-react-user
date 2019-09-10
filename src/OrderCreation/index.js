@@ -224,8 +224,10 @@ class OrderCreation extends Component {
 			{this.state.stages[this.state.stage] === 'initiation' ? 
 
 				<Segment className='outerSegment'>
-					<Button name='delivery' onClick={this.handleDeliveryClick}>delivery.</Button>
-					<Button name='pickup' onClick={this.handleDeliveryClick}>pick up.</Button>
+					<div className='fullSegment'>
+						<Button name='delivery' onClick={this.handleDeliveryClick}>delivery.</Button>
+						<Button name='pickup' onClick={this.handleDeliveryClick}>pick up.</Button>
+					</div>
 				</Segment>
 				:
 				null

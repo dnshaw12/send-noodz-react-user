@@ -40,7 +40,7 @@ class Ingredient extends Component {
 
 		return(
 
-			<Card id={this.props.ingredient._id} onClick={this.handleClick}>
+			<Card className='ingredientCard' id={this.props.ingredient._id} onClick={this.handleClick}>
 				<Card.Content className={inStock + ' ' + selected}>
 					<Card.Header>{this.props.ingredient.name}</Card.Header>
 					{ this.props.ingredient.price ? this.props.ingredient.price : null}

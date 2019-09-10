@@ -22,9 +22,10 @@ const IngredientList = (props) => {
 
 	return(
 
-		<Card.Group className='fullSegment'>
+		<Card.Group className='listSegment'>
 		<Button className='backButton' onClick={props.handleBackClick}><Icon name='angle left' size='large'/></Button>
 			{ingredientList}
+			<Button className='nextButton' onClick={props.handleNextClick}>next.</Button>
 		</Card.Group>
 
 	)

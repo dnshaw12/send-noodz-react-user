@@ -1,78 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Collapsible from 'react-collapsible';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Icon } from 'semantic-ui-react';
 
-const DishInfo = (props) => {
+class DishInfo extends Component {
 
-	let noodles = props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
+	constructor(){
+		super()
 
-		if (ingredient.type === 'noodle') {
+		this.state = {
+			open: false
+		}
+	}
 
-			if (idx === 0) {
-				return ingredient.name
+	toggleCollapisble = () => {
+		this.setState({
+			open: !this.state.open
+		})
+	}
+
+	render(){
+
+		let noodles = this.props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
+
+			if (ingredient.type === 'noodle') {
+
+				if (idx === 0) {
+					return ingredient.name
+				}
+
+				return ingredient.name + ', ' + acc
+			} else {
+				return acc
 			}
 
-			return ingredient.name + ', ' + acc
-		} else {
-			return acc
-		}
+		},'')
 
-	},'')
+		let proteins = this.props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
 
-	let proteins = props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
+			if (ingredient.type === 'protein') {
 
-		if (ingredient.type === 'protein') {
+				if (idx === 0) {
+					return ingredient.name
+				}
 
-			if (idx === 0) {
-				return ingredient.name
+				return ingredient.name + ', ' + acc
+			} else {
+				return acc
 			}
 
-			return ingredient.name + ', ' + acc
-		} else {
-			return acc
-		}
+		},'')
 
-	},'')
+		let sauces = this.props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
 
-	let sauces = props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
+			if (ingredient.type === 'sauce') {
 
-		if (ingredient.type === 'sauce') {
+				if (idx === 0) {
+					return ingredient.name
+				}
 
-			if (idx === 0) {
-				return ingredient.name
+				return ingredient.name + ', ' + acc
+			} else {
+				return acc
 			}
 
-			return ingredient.name + ', ' + acc
-		} else {
-			return acc
-		}
+		},'')
 
-	},'')
-
-	let normals = props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
-
-		if (ingredient.type === 'normal') {
-
-			if (idx === 0) {
-				return ingredient.name
-			}
-
-			return ingredient.name + ', ' + acc
-		} else {
-			return acc
-		}
-
-	},'')
-
-
-	if (props.dish.menuItemId.name !== 'byon') {
-		noodles ? noodles = props.dish.menuItemId.noodleType.name : noodles = props.dish.menuItemId.noodleType.name + ', ' + noodles
-
-		proteins ? proteins = props.dish.menuItemId.protein.name : proteins = props.dish.menuItemId.protein.name + ', ' + proteins
-
-		sauces ? sauces = props.dish.menuItemId.sauce.name : sauces = props.dish.menuItemId.sauce.name + ', ' + sauces
-
-		normals = props.dish.menuItemId.baseIngredients.reduce( (acc, ingredient, idx) => {
+		let normals = this.props.dish.extraIngredients.reduce( (acc, ingredient, idx) => {
 
 			if (ingredient.type === 'normal') {
 
@@ -87,27 +80,54 @@ const DishInfo = (props) => {
 
 		},'')
 
+
+		if (this.props.dish.menuItemId.name !== 'byon') {
+			noodles ? noodles = this.props.dish.menuItemId.noodleType.name : noodles = this.props.dish.menuItemId.noodleType.name + ', ' + noodles
+
+			proteins ? proteins = this.props.dish.menuItemId.protein.name : proteins = this.props.dish.menuItemId.protein.name + ', ' + proteins
+
+			sauces ? sauces = this.props.dish.menuItemId.sauce.name : sauces = this.props.dish.menuItemId.sauce.name + ', ' + sauces
+
+			normals = this.props.dish.menuItemId.baseIngredients.reduce( (acc, ingredient, idx) => {
+
+				if (ingredient.type === 'normal') {
+
+					if (idx === 0) {
+						return ingredient.name
+					}
+
+					return ingredient.name + ', ' + acc
+				} else {
+					return acc
+				}
+
+			},'')
+
+		}
+
+		const icon = this.state.open ? <Icon className='collapsibleArrow' name='angle up' /> : <Icon className='collapsibleArrow' name='angle down' />
+
+		return(
+
+			<Segment>
+
+				<Collapsible onOpen={this.toggleCollapisble} onClose={this.toggleCollapisble} trigger={this.props.dish.menuItemId.name}>
+					{icon}
+					<ul>
+						<li>noodz: {noodles}</li>
+						<li>protein: {proteins}</li>
+						<li>sauce: {sauces}</li>
+						<li>ingredients: {normals}</li>
+					</ul>
+
+				</Collapsible>
+
+			</Segment>
+
+
+		)
+
 	}
-	
-
-	return(
-
-		<Segment>
-
-			<Collapsible trigger={props.dish.menuItemId.name}>
-				<ul>
-					<li>noodz: {noodles}</li>
-					<li>protein: {proteins}</li>
-					<li>sauce: {sauces}</li>
-					<li>ingredients: {normals}</li>
-				</ul>
-
-			</Collapsible>
-
-		</Segment>
-
-
-	)
 
 }
 
