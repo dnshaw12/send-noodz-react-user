@@ -189,3 +189,16 @@ footer {
 	color: white;
 	background-color: rgb(255, 200, 57);
 }
+
+.heartIcon {
+	position: absolute;
+	z-index: 2;
+	top: 5px;
+	right: 4px;
+	animation: 1.5s scaleComponent infinite
+}
+
+@keyframes scaleComponent {
+	0%	{-webkit-transform: scaleX(1);transform: scaleX(1);}
+	50% {-webkit-transform: scaleX(-1);transform: scaleX(-1);}
+}

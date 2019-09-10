@@ -38,10 +38,6 @@ class OrderCreation extends Component {
 
 		if (this.props.loggedIn) {
 
-			socket.on('new order', data => {
-		      console.log('your new order', data);
-		    })
-
 			const menuItemsResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/menuItems')
 
 			const parsedResponse = await menuItemsResponse.json()

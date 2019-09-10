@@ -17,6 +17,7 @@ class App extends Component {
     super()
 
     this.state = {
+      userId: null,
       loggedIn: false,
       name: '',
       email: '',
@@ -142,7 +143,7 @@ class App extends Component {
       <main>
         <UserMenu loggedIn={this.state.loggedIn} logout={this.logout}/>
         <Switch>
-          <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp}/>  } />
+          <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp} userId={this.state.userId}/>  } />
           <Route exact path='/login' render={(props) => <Login {...props} login={this.login} message={this.state.message}/>  } />
           <Route exact path='/order-status' render={(props) => <OrderStatus {...props} userId={this.state.userId} makePrettyDate={this.makePrettyDate} loggedIn={this.state.loggedIn}/>  } />
           <Route exact path='/past-orders' render={(props) => <PastOrders {...props} userId={this.state.userId} makePrettyDate={this.makePrettyDate} loggedIn={this.state.loggedIn}/>  } />

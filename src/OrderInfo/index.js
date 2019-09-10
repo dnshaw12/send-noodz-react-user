@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DishInfo from './DishInfo'
-import { Segment } from 'semantic-ui-react';
+import { Segment, Icon } from 'semantic-ui-react';
 import Collapsible from 'react-collapsible';
 import socketIOClient from 'socket.io-client'
 
@@ -49,6 +49,7 @@ class OrderInfo extends Component {
 
 		const updated = this.state.updatedStatus ? 'updatedStatus' : ''
 
+
 		return(
 
 			<Segment>
@@ -60,6 +61,7 @@ class OrderInfo extends Component {
 				{ this.props.order.status !== 'archived' ?
 
 					<Segment>
+						{this.state.updatedStatus ? <Icon name="heart" color='red' className='heartIcon'/> : null}
 						<Collapsible
 							className={updated} 
 							trigger={this.state.updatedStatus ? 'an update regarding your noodz.' : 'view status.'}

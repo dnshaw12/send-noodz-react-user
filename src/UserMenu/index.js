@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import socketIOClient from 'socket.io-client'
+
+const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 
 
@@ -9,17 +12,48 @@ class UserMenu extends Component {
 		super()
 
 		this.state = {
-			menuOpen: false
+			menuOpen: false,
+			orderUpdates: false,
+			currentPage: '',
 		}
 	}
 
+	componentDidMount(){
+
+
+
+		socket.on('status update: ' + this.props.userId, data => {
+
+			if (this.state.currentPage !== 'order-status') {
+				this.setState({
+					orderUpdates: true
+				})
+				
+			}
+		})
+
+	}
+
 	handleClick = (e, { name }) => {
-		console.log(name);
+
+
+		if (name === 'order-status') {
+			this.setState({
+				orderUpdates: false
+			})
+		}
+
+		this.setState({
+			currentPage: name
+		})
 
 		this.props.history.push(`/${name}`)
 	}
 
 	render(){
+
+		const updateIcon = this.state.orderUpdates ? <Icon name="heart" color='red' className='heartIcon'/> : null
+
 		return(
 			<div>
 				{this.props.loggedIn ? 
@@ -34,6 +68,7 @@ class UserMenu extends Component {
 							name='order-status'
 							onClick={this.handleClick}
 						>
+							{updateIcon}
 							order status.
 						</Menu.Item>
 
