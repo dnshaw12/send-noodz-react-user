@@ -24,13 +24,11 @@ class SignUp extends Component {
 
    handleChange = (e) => {
 
-   	console.log(this.state);
 
       if(e.target.name !== 'profilePic'){
          this.setState({[e.target.name]: e.target.value});
       } else {
          // file upload
-         console.log(e.target);
          this.setState({image: e.target.files[0]});
       }
    }

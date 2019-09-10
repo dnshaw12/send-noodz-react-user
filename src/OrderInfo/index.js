@@ -21,7 +21,6 @@ class OrderInfo extends Component {
 		if (this.props.order) {
 
 			socket.on('status update: ' + this.props.order._id, data => {
-			   console.log('new status', data);
 			   this.setState({
 			   	updatedStatus: true,
 			   	status: data
@@ -33,7 +32,6 @@ class OrderInfo extends Component {
 	}
 
 	toggleUpdated = () => {
-		console.log('TOGGLE');
 		this.setState({updatedStatus:false})
 	}
 

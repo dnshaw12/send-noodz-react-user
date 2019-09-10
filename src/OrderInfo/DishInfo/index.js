@@ -64,8 +64,6 @@ const DishInfo = (props) => {
 
 	},'')
 
-	console.log('here',noodles,'here');
-
 
 	if (props.dish.menuItemId.name !== 'byon') {
 		noodles ? noodles = props.dish.menuItemId.noodleType.name : noodles = props.dish.menuItemId.noodleType.name + ', ' + noodles

@@ -39,7 +39,6 @@ class OrderCreation extends Component {
 
 			const parsedResponse = await menuItemsResponse.json()
 
-			console.log(parsedResponse);
 
 			const regularMenuItems = parsedResponse.data.filter( item => item.name !== 'byon')
 			const byonMenuItem = parsedResponse.data[parsedResponse.data.findIndex( item => item.name === 'byon')]
@@ -98,7 +97,6 @@ class OrderCreation extends Component {
 	}
 
 	handleBackClick = () => {
-		console.log('handleBackClick');
 
 			this.setState({
 				stage: this.state.stage - 1
@@ -166,9 +164,6 @@ class OrderCreation extends Component {
 
 				parsedResponse = await newOrderResponse.json()
 			}
-
-
-			console.log(parsedResponse,'parsedResponse on order creation');
 			
 			this.setState({
 				orderId: parsedResponse.data._id,
@@ -217,8 +212,6 @@ class OrderCreation extends Component {
 	}
 
 	updateState = (e) => {
-
-		console.log(this.state);
 
 		this.setState({[e.target.name]: e.target.value});
 

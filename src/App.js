@@ -55,11 +55,7 @@ class App extends Component {
         }
       })
 
-      console.log(signUpResponse);
-
-
       const parsedResponse = await signUpResponse.json()
-      console.log(parsedResponse);
 
       if (signUpResponse.status === 201) {
         this.setState({
@@ -91,11 +87,7 @@ class App extends Component {
         }
       })
 
-      console.log(loginResponse);
-
       const parsedResponse = await loginResponse.json()
-
-      console.log(parsedResponse);
 
       if (loginResponse.status === 200) {
         this.setState({

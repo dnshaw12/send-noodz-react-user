@@ -30,9 +30,6 @@ class DishCreation extends Component {
 
 	componentDidMount = async () => {
 
-		console.log(this.props);
-
-
 		this.setState({
 			menuItems: this.props.menuItems,
 			byonMenuItem: this.props.byonMenuItem,
@@ -86,7 +83,6 @@ class DishCreation extends Component {
 	}
 
 	selectMenuItem = (e) => {
-		console.log(e.target.id);
 
 		this.setState({
 			menuItemId: e.target.id,
@@ -97,14 +93,9 @@ class DishCreation extends Component {
 	handleIngredientSelection = (id, exists) => {
 		let ingredients = this.state.extraIngredients
 
-		console.log(ingredients);
-
 		if (exists) {
 
 			ingredients = ingredients.filter( ingredient => ingredient !== id)
-
-			console.log(ingredients, 'after filter');
-
 
 		} else {
 			ingredients.push(id)
@@ -119,9 +110,6 @@ class DishCreation extends Component {
 	createDish = async () => {
 		
 		try {
-			console.log(this.state, 'state on dish creation');
-
-
 
 			const newDishResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/dishes/',{
 				method: 'POST',
@@ -152,7 +140,6 @@ class DishCreation extends Component {
 	}
 
 	updateSpecialInstructions = e => {
-		console.log(this.state.specialInstructions);
 		this.setState({
 			specialInstructions: e.target.value
 		})
@@ -167,7 +154,6 @@ class DishCreation extends Component {
 
 	reviewOrder = () => {
 
-		console.log('reviewOrder');
 		this.setState({
 			menuItemId: '',
 			extraIngredients: [],
@@ -181,7 +167,6 @@ class DishCreation extends Component {
 
 	render(){
 
-		console.log(this.props.totalDishes, 'totalDishes');
 		return(
 
 			<Segment className='outerSegment'>

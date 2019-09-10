@@ -25,8 +25,6 @@ class ReviewOrder extends Component {
 
 			const parsedResponse = await orderResponse.json()
 
-			console.log(parsedResponse);
-
 			this.setState({
 				order: parsedResponse.data
 			})
@@ -148,9 +146,6 @@ class ReviewOrder extends Component {
 				)
 			})
 		}
-
-
-		console.log(this.state,'on render');
 
 		return(
 			<Segment>
