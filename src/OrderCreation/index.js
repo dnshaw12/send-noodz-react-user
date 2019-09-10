@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Button, Segment} from 'semantic-ui-react';
 import DishCreation from './DishCreation'
 import ReviewOrder from './ReviewOrder'
-import socketIOClient from 'socket.io-client'
-
-const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 class OrderCreation extends Component {
 
@@ -195,7 +192,7 @@ class OrderCreation extends Component {
 	      data.append('zip', this.state.zip);
 	      data.append('deliveryInstructions', this.state.deliveryInstructions);
 
-			const updatedOrderResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
+			await fetch(process.env.REACT_APP_BACKEND_URL + '/orders/' + this.state.orderId,{
 					method: 'PUT',
 		        	credentials: 'include',
 		        	body: JSON.stringify({
@@ -211,8 +208,6 @@ class OrderCreation extends Component {
 		         	'Content-Type': 'application/json'
 	       		}
 				})
-
-				const parsedResponse = await updatedOrderResponse.json()
 
 				this.props.history.push('/order-status')
 			

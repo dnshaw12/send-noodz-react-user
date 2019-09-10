@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import socketIOClient from 'socket.io-client'
 
 import UserMenu from './UserMenu'
 import SignUp from './SignUp'
@@ -8,8 +7,6 @@ import Login from './Login'
 import OrderCreation from './OrderCreation'
 import OrderStatus from './OrderStatus'
 import PastOrders from './PastOrders'
-
-const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
 
 class App extends Component {
 
@@ -46,10 +43,8 @@ class App extends Component {
 
   signUp = async (data) => {
 
-    // console.log(data, 'data in app sign up');
 
     try {
-      // console.log(process.env);
 
       const signUpResponse = await fetch(process.env.REACT_APP_BACKEND_URL + '/users/sign-up', {
         method: 'POST',

@@ -19,6 +19,15 @@ class OrderInfo extends Component {
 
 	componentDidMount(){
 		if (this.props.order) {
+
+			socket.on('status update: ' + this.props.order._id, data => {
+			   console.log('new status', data);
+			   this.setState({
+			   	updatedStatus: true,
+			   	status: data
+			   })
+			})
+			
 			this.setState({status:this.props.order.status})
 		}
 	}
@@ -36,14 +45,6 @@ class OrderInfo extends Component {
 		if (this.props.order) {
 			dishes = this.props.order.dishes.map( dish => {
 				return <DishInfo dish={dish} />
-			})
-
-			socket.on('status update: ' + this.props.order._id, data => {
-			   console.log('new status', data);
-			   this.setState({
-			   	updatedStatus: true,
-			   	status: data
-			   })
 			})
 		}
 

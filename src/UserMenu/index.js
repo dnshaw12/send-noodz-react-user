@@ -21,16 +21,18 @@ class UserMenu extends Component {
 	componentDidMount(){
 
 
+		if (this.props.loggedIn) {
+			socket.on('status update: ' + this.props.userId, data => {
 
-		socket.on('status update: ' + this.props.userId, data => {
+				if (this.state.currentPage !== 'order-status') {
+					this.setState({
+						orderUpdates: true
+					})
 
-			if (this.state.currentPage !== 'order-status') {
-				this.setState({
-					orderUpdates: true
-				})
-				
-			}
-		})
+				}
+			})
+			
+		}
 
 	}
 
