@@ -148,7 +148,7 @@ class ReviewOrder extends Component {
 		}
 
 		return(
-			<Segment>
+			<Segment className='outerSegment'>
 				{dishes}
 
 			{ this.state.order ? 

@@ -225,6 +225,7 @@ class OrderCreation extends Component {
 
 				<Segment className='outerSegment'>
 					<div className='fullSegment'>
+						<img class='mainImage' src='https://thumbs.dreamstime.com/b/hungry-boy-eating-chinese-noodles-sticks-8408259.jpg' />
 						<Button name='delivery' onClick={this.handleDeliveryClick}>delivery.</Button>
 						<Button name='pickup' onClick={this.handleDeliveryClick}>pick up.</Button>
 					</div>

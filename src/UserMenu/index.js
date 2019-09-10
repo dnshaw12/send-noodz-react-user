@@ -57,7 +57,7 @@ class UserMenu extends Component {
 		const updateIcon = this.state.orderUpdates ? <Icon name="heart" color='red' className='heartIcon'/> : null
 
 		return(
-			<div>
+			<header>
 				{this.props.loggedIn ? 
 					<Menu verticle="true">
 						<Menu.Item
@@ -108,7 +108,7 @@ class UserMenu extends Component {
 					</Menu>
 
 				}
-			</div>
+			</header>
 		)
 	}
 }

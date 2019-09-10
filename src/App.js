@@ -136,6 +136,11 @@ class App extends Component {
           <Route exact path='/past-orders' render={(props) => <PastOrders {...props} userId={this.state._id} makePrettyDate={this.makePrettyDate} loggedIn={this.state.loggedIn}/>  } />
           <Route exact path='/' render={(props) => <OrderCreation {...props} {...this.state}/>  } />
         </Switch>
+        <footer >
+
+          <h2>send noodz.</h2>
+
+        </footer>
       </main>
     );
 

@@ -9,6 +9,12 @@ code {
     monospace;
 }
 
+header {
+	position: fixed;
+	width: 100%;
+	z-index: 12;
+}
+
 .menu {
 	background-color: rgb(255, 200, 57) !important;
 	font-family: 'Dosis', sans-serif !important;
@@ -51,7 +57,8 @@ code {
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 0px !important;
-	padding-top: 60px !important;
+	padding: 100px 0px 60px 0px !important;
+
 	border: white; 
 }
 
@@ -101,7 +108,8 @@ footer {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	z-index: 10;
+	align-items: center;
+	z-index: 9;
 	color: white;
 	background-color: rgb(255, 200, 57);
 	text-shadow:
@@ -109,6 +117,11 @@ footer {
 		1.5px -1.5px 0 rgb(204, 148, 3),
 		-1.5px 1.5px 0 rgb(204, 148, 3),
 		1.5px 1.5px 0 rgb(204, 148, 3);
+	border-top: 2px solid rgb(204, 148, 3);
+}
+
+.footer1 {
+	z-index: 10;
 }
 
 .reviewButton {
@@ -186,7 +199,7 @@ footer {
 
 .backButton {
 	position: absolute;
-	top: 5px;
+	top: 60px;
 	left: 15px;
 	width: 1px !important;
 	height: 40px;
@@ -253,17 +266,36 @@ footer {
 	margin-right: -20px;
 }
 
+.mainImage {
+	max-width: 75%;
+	max-height: 50%;
+	border: 3px solid rgb(204, 148, 3);
+}
+
 @media screen and (min-width: 700px) {
 
-	.fullSegment, .outerSegment {
+	.fullSegment, .outerSegment, footer, .listSegment {
 		max-width: 50vw;
 	}
+
+	.ingredientCard, .contentSegment {
+		max-width: 46vw !important;
+	}
+
+	header {
+	position: fixed;
+	width: 50vw;
+}
 
 	body {
 		/*background-color: red;*/
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+	}
+
+	footer {
+		border: 2px solid rgb(204, 148, 3);
 	}
 
 }
