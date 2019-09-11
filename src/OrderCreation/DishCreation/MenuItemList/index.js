@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import MenuItem from './MenuItem'
 
 const MenuItemList = (props) => {

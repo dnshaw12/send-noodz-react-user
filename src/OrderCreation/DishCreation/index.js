@@ -176,7 +176,7 @@ class DishCreation extends Component {
 
 					<div className='fullSegment'>
 						<Button className='backButton' onClick={this.handleBackClick}><Icon name='angle left' size='large'/></Button>
-						<img class='mainImage' src='https://i.pinimg.com/originals/67/ae/6a/67ae6a3d5d52f8ecce2ec526d704cdab.jpg' />
+						<img alt='' class='mainImage' src='https://i.pinimg.com/originals/67/ae/6a/67ae6a3d5d52f8ecce2ec526d704cdab.jpg' />
 						<Button name='menuItem' onClick={this.handleTypeChoiceClick}>fan fave noodz.</Button>
 						<Button name='byon' onClick={this.handleTypeChoiceClick}>byon.</Button>
 					</div>
@@ -342,7 +342,7 @@ class DishCreation extends Component {
 			{(this.state.stage === 'byon' && this.state.byonStages[this.state.stageIndex] === 'addAnotherPrompt') || (this.state.stage === 'menuItem' && this.state.menuItemStages[this.state.stageIndex] === 'addAnotherPrompt') ?
 					
 				<div className='fullSegment'>
-					<img class='mainImage' src='https://previews.123rf.com/images/marilyna/marilyna1502/marilyna150200011/36355370-pasta-smiley-face-abstract-background-on-a-wooden-board-.jpg' />
+					<img alt='' class='mainImage' src='https://previews.123rf.com/images/marilyna/marilyna1502/marilyna150200011/36355370-pasta-smiley-face-abstract-background-on-a-wooden-board-.jpg' />
 					<Button onClick={this.startNewDish}>add more noodz.</Button>
 					<Button onClick={this.reviewOrder}>review noodz order.</Button>
 				</div>

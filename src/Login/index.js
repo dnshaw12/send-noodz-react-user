@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'react-phone-number-input/style.css'
-import { Button, Form, Header, Message, Segment} from 'semantic-ui-react';
+import { Button, Form, Header, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {

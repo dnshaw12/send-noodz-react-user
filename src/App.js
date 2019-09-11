@@ -28,7 +28,6 @@ class App extends Component {
       const date = new Date(str);
 
       const options = { 
-         // weekday: 'short', 
          year: 'numeric', 
          month: 'numeric', 
          day: 'numeric', 
@@ -128,7 +127,7 @@ class App extends Component {
   render(){
     return (
       <main>
-        <UserMenu loggedIn={this.state.loggedIn} logout={this.logout}/>
+        <UserMenu loggedIn={this.state.loggedIn} userId={this.state._id} logout={this.logout}/>
         <Switch>
           <Route exact path='/sign-up' render={(props) => <SignUp {...props} signUp={this.signUp} userId={this.state._id}/>  } />
           <Route exact path='/login' render={(props) => <Login {...props} login={this.login} message={this.state.message}/>  } />
